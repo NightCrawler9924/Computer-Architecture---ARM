@@ -1,4 +1,4 @@
-"""Tiny local web server for the ENGR 359 Learning Lab.
+"""Tiny local web server for the Opcode.
 
 Double-clicking index.html also works. This server is only needed if your
 browser blocks something when opening files directly, or for development.
@@ -24,7 +24,7 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
 
 http.server.ThreadingHTTPServer.daemon_threads = True
 with http.server.ThreadingHTTPServer(("", PORT), NoCacheHandler) as httpd:
-    print("ENGR 359 Learning Lab running at http://localhost:%d  (Ctrl+C to stop)" % PORT)
+    print("Opcode running at http://localhost:%d  (Ctrl+C to stop)" % PORT)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
