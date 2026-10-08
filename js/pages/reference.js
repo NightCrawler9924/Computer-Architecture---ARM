@@ -91,7 +91,7 @@
     body.appendChild(h('p', {}, 'Each of these was checked against the original page, not against extracted text. If you memorised the printed version, fix it.'));
     body.appendChild(h('div', { class: 'wide' }, Lab.table(['Where', 'What it says', 'What it should say'], ERRORS)));
     body.appendChild(h('h2', {}, 'Glossary'));
-    var q = h('input', { type: 'text', id: 'gl-q', placeholder: 'Filter terms...', 'aria-label': 'Filter the glossary', style: { width: '100%', maxWidth: '20rem' } });
+    var q = h('input', { type: 'text', id: 'gl-q', placeholder: 'Filter terms…', 'aria-label': 'Filter the glossary', style: { width: '100%', maxWidth: '20rem' } });
     var list = h('div', { class: 'gloss' });
     body.appendChild(h('div', { class: 'field' }, h('label', { for: 'gl-q' }, 'Find a term'), q));
     body.appendChild(list);

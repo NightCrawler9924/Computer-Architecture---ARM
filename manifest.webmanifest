@@ -1,6 +1,6 @@
 {
-  "name": "Datapath",
-  "short_name": "Datapath",
+  "name": "Opcode",
+  "short_name": "Opcode",
   "description": "Interactive microcomputer engineering: ARM assembly, flags, memory and buses, with a simulator and practice.",
   "start_url": "./",
   "scope": "./",

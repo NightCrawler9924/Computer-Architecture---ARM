@@ -19,12 +19,12 @@
   Lab.widgets.condExplorer = function (root, o) {
     o = o || {};
     var st = { tab: o.tab || 'flags', f: { N: 0, Z: 0, C: 0, V: 0 }, a: o.a !== undefined ? o.a >>> 0 : 0xFFFFFFFF, b: o.b !== undefined ? o.b >>> 0 : 1 };
-    var tabs = h('div', { class: 'seg', role: 'tablist' });
+    var tabs = h('div', { class: 'seg', role: 'group', 'aria-label': 'View' });
     var body = h('div', { class: 'cond-body' });
     function drawTabs() {
       Lab.clear(tabs);
       [['flags', 'Set the flags'], ['cmp', 'Compare two numbers']].forEach(function (t) {
-        tabs.appendChild(h('button', { type: 'button', role: 'tab', 'aria-selected': st.tab === t[0] ? 'true' : 'false', onclick: function () { st.tab = t[0]; drawTabs(); render(); } }, t[1]));
+        tabs.appendChild(h('button', { type: 'button', 'aria-pressed': st.tab === t[0] ? 'true' : 'false', onclick: function () { st.tab = t[0]; drawTabs(); render(); } }, t[1]));
       });
     }
     root.appendChild(tabs); root.appendChild(body);

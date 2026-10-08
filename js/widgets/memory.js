@@ -15,7 +15,7 @@
     var shade = ['b0', 'b1', 'b2', 'b3'];
 
     function stack(bytes, label, note) {
-      var box = h('div', { class: 'memstack' }, h('h4', {}, label), h('p', { class: 'muted' }, note));
+      var box = h('div', { class: 'memstack' }, h('div', { class: 'subhead' }, label), h('p', { class: 'muted' }, note));
       for (var i = 3; i >= 0; i--) {
         box.appendChild(h('div', { class: 'memrow' }, h('span', { class: 'addr mono' }, hx((st.base + i) >>> 0)), h('span', { class: 'bytecell mono ' + shade[bytes[i].sig] }, bytes[i].v.toString(16).toUpperCase().padStart(2, '0')), h('span', { class: 'sig' }, bytes[i].sig === 3 ? 'most significant byte' : bytes[i].sig === 0 ? 'least significant byte' : '')));
       }

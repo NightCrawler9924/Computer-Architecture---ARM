@@ -32,7 +32,7 @@
     var res = E.runProgram(src, init);
     if (!res.asm.ok) { root.appendChild(h('p', { class: 'feedback bad' }, 'Problem setup error: ' + res.asm.errors[0].msg)); return; }
     var cpu = res.cpu, ask = o.ask || [], inputs = {};
-    if (o.title) root.appendChild(h('h4', { style: { marginTop: 0 } }, o.title));
+    if (o.title) root.appendChild(h('div', { class: 'subhead', style: { marginTop: 0 } }, o.title));
     root.appendChild(givenTable(o.regs, o.flags));
     root.appendChild(h('p', {}, 'Run this instruction on its own:'));
     root.appendChild(Lab.codeBlock(o.code, { init: init }));
@@ -82,7 +82,7 @@
     var res = E.runProgram(lines.join('\n') + '\nstop B stop', init);
     if (!res.asm.ok) { root.appendChild(h('p', { class: 'feedback bad' }, 'Problem setup error: ' + res.asm.errors[0].msg)); return; }
     var show = o.show || Object.keys(o.regs || {});
-    if (o.title) root.appendChild(h('h4', { style: { marginTop: 0 } }, o.title));
+    if (o.title) root.appendChild(h('div', { class: 'subhead', style: { marginTop: 0 } }, o.title));
     root.appendChild(givenTable(o.regs, o.flags));
     var startRegs = {}; show.forEach(function (r) { startRegs[r] = (o.regs && o.regs[r] !== undefined) ? o.regs[r] : 0; });
     var rowsState = [];

@@ -1,6 +1,6 @@
-# Datapath
+# Opcode
 
-Learn how computers actually run code. Datapath is an interactive course in microcomputer engineering: number
+Learn how computers actually run code. Opcode is an interactive course in microcomputer engineering: number
 representation, memory and buses, the ARM processor and assembly, flags, and the Tiva LaunchPad labs. It has a
 simulator, hands-on tools and practice questions, and it is designed to work well on a phone.
 

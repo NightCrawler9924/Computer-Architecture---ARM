@@ -27,7 +27,7 @@
         else el.setAttribute(k, v);
       });
     }
-    if ((tag === 'input' && (el.type === 'text' || !el.type)) || tag === 'textarea') { el.setAttribute('autocapitalize', 'off'); el.setAttribute('autocorrect', 'off'); el.setAttribute('spellcheck', 'false'); }
+    if ((tag === 'input' && (el.type === 'text' || !el.type)) || tag === 'textarea') { el.setAttribute('autocapitalize', 'off'); el.setAttribute('autocorrect', 'off'); el.setAttribute('spellcheck', 'false'); if (!el.hasAttribute('autocomplete')) el.setAttribute('autocomplete', 'off'); }
     for (var i = 2; i < arguments.length; i++) append(el, arguments[i]);
     return el;
   };
@@ -136,7 +136,7 @@
 
   Lab.table = function (head, rows, opts) {
     opts = opts || {};
-    var t = h('table', {}, h('thead', {}, h('tr', {}, head.map(function (c, i) { return h('th', { class: (opts.center && opts.center.indexOf(i) >= 0) ? 'c' : '' }, c); }))),
+    var t = h('table', {}, h('thead', {}, h('tr', {}, head.map(function (c, i) { return h('th', { scope: 'col', class: (opts.center && opts.center.indexOf(i) >= 0) ? 'c' : '' }, c); }))),
       h('tbody', {}, rows.map(function (r) { return h('tr', {}, r.map(function (c, i) { var cell = h('td', { class: (opts.center && opts.center.indexOf(i) >= 0) ? 'c' : '' }); if (c instanceof Node) cell.appendChild(c); else cell.innerHTML = Lab.fmt(c); return cell; })); })));
     return h('div', { class: 'table-wrap' }, t);
   };
@@ -146,7 +146,7 @@
     o = o || {};
     var id = 'hf' + Math.random().toString(36).slice(2, 8);
     var input = h('input', { type: 'text', id: id, class: 'hex-in', value: o.value !== undefined ? E.hex(o.value) : '', spellcheck: 'false', autocomplete: 'off', 'aria-label': o.label || 'Hex value', placeholder: o.placeholder || '0x00000000', inputmode: 'text' });
-    function validate() { var v = E.parseValue(input.value); input.classList.toggle('bad', input.value.trim() !== '' && v === null); return v; }
+    function validate() { var v = E.parseValue(input.value); var badv = input.value.trim() !== '' && v === null; input.classList.toggle('bad', badv); input.setAttribute('aria-invalid', badv ? 'true' : 'false'); return v; }
     input.addEventListener('input', function () { var v = validate(); if (v !== null && o.onChange) o.onChange(v); });
     input.addEventListener('blur', function () { var v = E.parseValue(input.value); if (v !== null && /^[0-9a-f]+$/i.test(input.value.trim())) input.value = E.hex(v); });
     var el = h('div', { class: 'field' }, o.label ? h('label', { for: id }, o.label) : null, input);
@@ -193,6 +193,7 @@
       lsSet('e359.theme', t);
       var de = document.documentElement;
       if (t === 'system') { de.removeAttribute('data-theme'); de.removeAttribute('data-system'); } else { de.setAttribute('data-theme', t); }
+      if (Lab.syncThemeColor) Lab.syncThemeColor();
     },
     effective: function () {
       var t = Lab.theme.get();
@@ -200,5 +201,16 @@
       return window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
   };
+
+  /* the browser chrome colour follows the chosen theme, not just the device setting */
+  Lab.syncThemeColor = function () {
+    var dark = Lab.theme.effective() === 'dark', color = dark ? '#101113' : '#F5F5F3';
+    Array.prototype.forEach.call(document.querySelectorAll('meta[name="theme-color"][media]'), function (m) { m.remove(); });
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (!m) { m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); }
+    m.content = color;
+  };
   (function () { var t = Lab.theme.get(), de = document.documentElement; if (t === 'system') de.removeAttribute('data-theme'); else de.setAttribute('data-theme', t); })();
+  Lab.syncThemeColor();
+  if (window.matchMedia) { var mq = matchMedia('(prefers-color-scheme: dark)'); (mq.addEventListener ? mq.addEventListener.bind(mq, 'change') : mq.addListener.bind(mq))(function () { Lab.syncThemeColor(); }); }
 })(window);

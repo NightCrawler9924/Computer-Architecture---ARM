@@ -84,22 +84,21 @@
     else if (r.name === 'lesson' && r.arg && unitOf(r.arg)) setTrack(trackOf(unitOf(r.arg)));
     else if (r.name === 'unit' && r.arg) { var uu = Lab.units.filter(function (x) { return x.id === r.arg; })[0]; if (uu) setTrack(trackOf(uu)); }
     buildSidebar();
-    document.body.classList.remove('nav-open');
+    document.body.classList.remove('nav-open'); main.inert = false; var tg = document.getElementById('nav-toggle'); if (tg) tg.setAttribute('aria-expanded', 'false');
     var scrim = document.querySelector('.scrim'); if (scrim) scrim.remove();
     Lab.clear(main);
     window.scrollTo(0, 0);
     var page = Lab.pages[r.name];
     var wrap = h('div', { class: 'page' });
     main.appendChild(wrap);
-    if (!page) { wrap.appendChild(h('h1', {}, 'Page not found')); wrap.appendChild(h('p', {}, 'There is no page called "' + r.name + '". Try the course map on the left.')); document.title = 'Not found | Datapath'; }
+    if (!page) { wrap.appendChild(h('h1', {}, 'Page not found')); wrap.appendChild(h('p', {}, 'There is no page called "' + r.name + '". Try the course map on the left.')); document.title = 'Not found | Opcode'; }
     else { try { page(wrap, r.arg); } catch (e) { wrap.appendChild(h('p', { class: 'muted' }, 'Something went wrong loading this page: ' + e.message)); if (window.console) console.error(e); } }
     markCurrent();
     var hd = wrap.querySelector('h1');
-    if (hd) hd.setAttribute('tabindex', '-1');
-    main.focus({ preventScroll: true });
+    if (hd) { hd.setAttribute('tabindex', '-1'); hd.focus({ preventScroll: true }); } else main.focus({ preventScroll: true });
   }
   Lab.go = function (hash) { location.hash = hash; };
-  Lab.setTitle = function (t) { document.title = t ? t + ' | Datapath' : 'Datapath: learn how computers run code'; };
+  Lab.setTitle = function (t) { document.title = t ? t + ' | Opcode' : 'Opcode: learn how computers run code'; };
 
   /* ---------- pages ---------- */
   Lab.pages.home = function (el) {
@@ -123,13 +122,13 @@
       var d = ls.filter(Lab.isDone).length;
       path.appendChild(h('a', { class: 'path-item', href: '#/unit/' + u.id },
         h('span', { class: 'tick' + (d === ls.length ? ' done' : d ? ' part' : ''), 'aria-hidden': 'true' }, d === ls.length ? '✓' : ''),
-        h('div', {}, h('h3', {}, u.title), h('p', {}, u.blurb || '')),
+        h('div', {}, h('div', { class: 'item-title' }, u.title), h('p', {}, u.blurb || '')),
         h('span', { class: 'go num' }, d + '/' + ls.length)));
     });
     var labIds = trackIds('labs'), labDone = labIds.filter(Lab.isDone).length;
     if (labIds.length) path.appendChild(h('a', { class: 'path-item', href: '#/labs' },
       h('span', { class: 'tick' + (labDone === labIds.length ? ' done' : labDone ? ' part' : ''), 'aria-hidden': 'true' }, labDone === labIds.length ? '✓' : ''),
-      h('div', {}, h('h3', {}, 'Labs: the Tiva LaunchPad'), h('p', {}, 'The hardware side, kept apart from the lectures: the board, the BoosterPack, the clock, serial and the light sensor.')),
+      h('div', {}, h('div', { class: 'item-title' }, 'Labs: the Tiva LaunchPad'), h('p', {}, 'The hardware side, kept apart from the lectures: the board, the BoosterPack, the clock, serial and the light sensor.')),
       h('span', { class: 'go num' }, labDone + '/' + labIds.length)));
     var tools = h('div', { class: 'tool-list' },
       [['sim', 'ARM simulator', 'Write assembly, step through it, watch registers and flags'],
@@ -156,7 +155,7 @@
       var d = Lab.isDone(lid);
       path.appendChild(h('a', { class: 'path-item', href: '#/lesson/' + lid },
         h('span', { class: 'tick' + (d ? ' done' : ''), 'aria-hidden': 'true' }, d ? '✓' : ''),
-        h('div', {}, h('h3', {}, L.title), h('p', {}, L.lede || '')), h('span', { class: 'go num' }, (L.minutes || 10) + ' min')));
+        h('div', {}, h('div', { class: 'item-title' }, L.title), h('p', {}, L.lede || '')), h('span', { class: 'go num' }, (L.minutes || 10) + ' min')));
     });
     el.appendChild(path);
   };
@@ -209,10 +208,10 @@
         var L = Lab.lessons[lid], d = Lab.isDone(lid);
         path.appendChild(h('a', { class: 'path-item', href: '#/lesson/' + lid },
           h('span', { class: 'tick' + (d ? ' done' : ''), 'aria-hidden': 'true' }, d ? '✓' : ''),
-          h('div', {}, h('h3', {}, L.title), h('p', {}, L.lede || '')), h('span', { class: 'go num' }, (L.minutes || 10) + ' min')));
+          h('div', {}, h('div', { class: 'item-title' }, L.title), h('p', {}, L.lede || '')), h('span', { class: 'go num' }, (L.minutes || 10) + ' min')));
       });
       (u.soon || []).forEach(function (t) {
-        path.appendChild(h('div', { class: 'path-item', style: { opacity: .75 } }, h('span', { class: 'tick soon', 'aria-hidden': 'true' }), h('div', {}, h('h3', {}, t), h('p', {}, 'Planned.')), h('span', { class: 'go' }, 'Planned')));
+        path.appendChild(h('div', { class: 'path-item', style: { opacity: .75 } }, h('span', { class: 'tick soon', 'aria-hidden': 'true' }), h('div', {}, h('div', { class: 'item-title' }, t), h('p', {}, 'Planned.')), h('span', { class: 'go' }, 'Planned')));
       });
       el.appendChild(path);
     });
@@ -228,7 +227,7 @@
     el.appendChild(h('div', { class: 'lesson-head' }, h('h1', {}, 'Interactive tools'), h('p', { class: 'lede' }, 'Every tool runs on the same engine as the simulator, so a number here can never disagree with a number there.')));
     var list = h('div', { class: 'path' });
     (Lab.toolList || []).forEach(function (t) {
-      list.appendChild(h('a', { class: 'path-item', href: '#/tool/' + t.name }, h('span', { class: 'tick', 'aria-hidden': 'true', style: { border: 0 } }), h('div', {}, h('h3', {}, t.title), h('p', {}, t.blurb)), h('span', { class: 'go' }, 'Open')));
+      list.appendChild(h('a', { class: 'path-item', href: '#/tool/' + t.name }, h('span', { class: 'tick', 'aria-hidden': 'true', style: { border: 0 } }), h('div', {}, h('div', { class: 'item-title' }, t.title), h('p', {}, t.blurb)), h('span', { class: 'go' }, 'Open')));
     });
     el.appendChild(list);
   };
@@ -252,14 +251,17 @@
     function drawTheme() { var cur = Lab.theme.get(); Array.prototype.forEach.call(sw, function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-theme-set') === cur ? 'true' : 'false'); }); }
     Array.prototype.forEach.call(sw, function (b) { b.addEventListener('click', function () { Lab.theme.set(b.getAttribute('data-theme-set')); drawTheme(); }); });
     drawTheme();
-    document.getElementById('nav-toggle').addEventListener('click', function () {
-      var open = !document.body.classList.contains('nav-open');
+    function setDrawer(open) {
       document.body.classList.toggle('nav-open', open);
-      this.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var t = document.getElementById('nav-toggle'); t.setAttribute('aria-expanded', open ? 'true' : 'false');
       var s = document.querySelector('.scrim');
-      if (open && !s) { var sc = h('div', { class: 'scrim', onclick: function () { document.body.classList.remove('nav-open'); sc.remove(); } }); document.body.appendChild(sc); } else if (!open && s) s.remove();
-    });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('nav-open')) { document.body.classList.remove('nav-open'); var sc = document.querySelector('.scrim'); if (sc) sc.remove(); var t = document.getElementById('nav-toggle'); t.setAttribute('aria-expanded', 'false'); t.focus(); } });
+      if (open && !s) { var sc = h('div', { class: 'scrim', onclick: function () { setDrawer(false); } }); document.body.appendChild(sc); } else if (!open && s) s.remove();
+      if (window.matchMedia('(max-width: 980px)').matches) { main.inert = open; }
+      if (open) { var first = sidebar.querySelector('a, button'); if (first) first.focus(); }
+    }
+    Lab.closeDrawer = function () { if (document.body.classList.contains('nav-open')) setDrawer(false); };
+    document.getElementById('nav-toggle').addEventListener('click', function () { setDrawer(!document.body.classList.contains('nav-open')); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('nav-open')) { setDrawer(false); document.getElementById('nav-toggle').focus(); } });
     window.addEventListener('hashchange', route);
     route();
   }

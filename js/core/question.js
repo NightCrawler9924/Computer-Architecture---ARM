@@ -102,7 +102,7 @@
           var val = inputs[i].value, good;
           if (f.check) good = !!f.check(val);
           else { var answers = Array.isArray(f.a) ? f.a : [f.a]; good = answers.some(function (a) { return sameValue(f.type, val, a); }); }
-          inputs[i].classList.toggle('bad', !good); inputs[i].classList.toggle('ok', good);
+          inputs[i].classList.toggle('bad', !good); inputs[i].classList.toggle('ok', good); inputs[i].setAttribute('aria-invalid', good ? 'false' : 'true');
           if (!good) { ok = false; wrong.push(f.label || 'answer ' + (i + 1)); }
         });
       }

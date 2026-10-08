@@ -187,7 +187,7 @@
       var chips = h('div', { class: 'phase-row', role: 'list' }, phaseNames.map(function (n, i) { return h('div', { role: 'listitem', class: 'phase' + (st.phase === i + 1 || (st.phase === 0 && i === 0 && false) ? ' on' : '') + (st.phase > i + 1 ? ' past' : ''), 'aria-current': st.phase === i + 1 ? 'step' : null }, n); }));
       view.appendChild(chips);
 
-      var left = h('div', { class: 'memlist', role: 'table', 'aria-label': 'Instruction memory' }, h('div', { class: 'memhead' }, 'Memory (instructions)'));
+      var left = h('div', { class: 'memlist', role: 'group', 'aria-label': 'Instruction memory' }, h('div', { class: 'memhead' }, 'Memory (instructions)'));
       asm.program.forEach(function (p) {
         var w = word(p);
         left.appendChild(h('div', { class: 'memline' + (p.addr === (st.phase >= 1 && st.phase <= 3 && st.pcFetched !== null ? st.pcFetched : cpu.pc) && !cpu.halted ? ' pc' : '') }, h('span', { class: 'addr mono' }, hx(p.addr, 4)), h('span', { class: 'mono word' }, w === null ? '-' : hx(w)), h('span', { class: 'mono asmtxt', html: Lab.asmHtml(p.text.replace(/^\S+\s+(?=[A-Za-z]{2,}\s)/, function (m) { return m; })) })));

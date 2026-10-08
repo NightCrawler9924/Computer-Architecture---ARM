@@ -96,12 +96,12 @@
   Lab.widgets.encoder = function (root, o) {
     o = o || {};
     var st = { tab: o.tab || 'asm', text: o.text || 'ADDGT r0, r3, r9', word: o.word !== undefined ? o.word >>> 0 : 0xC0830009, b: { cond: 'GT', op: 'ADD', S: false, rn: 3, rd: 0, rm: 9, imm: false, immv: 5 } };
-    var tabs = h('div', { class: 'seg', role: 'tablist' });
+    var tabs = h('div', { class: 'seg', role: 'group', 'aria-label': 'Mode' });
     var body = h('div');
     root.appendChild(tabs); root.appendChild(body);
     function drawTabs() {
       Lab.clear(tabs);
-      [['asm', 'Assembly to machine code'], ['build', 'Build field by field'], ['word', 'Machine code to assembly']].forEach(function (t) { tabs.appendChild(h('button', { type: 'button', role: 'tab', 'aria-selected': st.tab === t[0] ? 'true' : 'false', onclick: function () { st.tab = t[0]; drawTabs(); render(); } }, t[1])); });
+      [['asm', 'Assembly to machine code'], ['build', 'Build field by field'], ['word', 'Machine code to assembly']].forEach(function (t) { tabs.appendChild(h('button', { type: 'button', 'aria-pressed': st.tab === t[0] ? 'true' : 'false', onclick: function () { st.tab = t[0]; drawTabs(); render(); } }, t[1])); });
     }
     drawTabs();
 

@@ -31,7 +31,7 @@
 
   Lab.widgets.pinTable = function (root, o) {
     var st = { q: '', only: false, part: null };
-    var q = h('input', { type: 'text', id: 'pin-q', placeholder: 'Search: pin number, PF_3, backlight, I2C...', 'aria-label': 'Filter the pin table', style: { width: '100%', maxWidth: '22rem' } });
+    var q = h('input', { type: 'text', id: 'pin-q', placeholder: 'Search: pin number, PF_3, backlight, I2C…', 'aria-label': 'Filter the pin table', style: { width: '100%', maxWidth: '22rem' } });
     var only = h('label', { class: 'inline-check' }, h('input', { type: 'checkbox', onchange: function (e) { st.only = e.target.checked; draw(); } }), 'Only pins the MKII uses');
     q.addEventListener('input', function () { st.q = q.value.toLowerCase(); draw(); });
     var partsRow = h('div', { class: 'btn-row', role: 'group', 'aria-label': 'Board parts' });

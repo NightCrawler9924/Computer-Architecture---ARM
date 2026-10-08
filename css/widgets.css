@@ -51,7 +51,7 @@
 /* ---- memory ---- */
 .memstacks { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: var(--s4); margin: var(--s4) 0; }
 .memstack { background: var(--bg); padding: var(--s4); border-radius: var(--r); }
-.memstack h4 { margin: 0 0 4px; font-size: var(--fs-2); }
+.memstack .subhead { margin: 0 0 4px; font-size: var(--fs-2); }
 .memstack p { margin: 0 0 var(--s3); font-size: var(--fs-0); }
 .memrow { display: grid; grid-template-columns: 7.5rem 3rem 1fr; gap: 10px; align-items: center; padding: 3px 0; }
 .addr { color: var(--ink-3); font-size: .82rem; }
@@ -146,7 +146,7 @@
 .lnote { font-size: var(--fs-0); padding: 2px 12px 6px 40px; }
 .sim-hint { font-size: var(--fs-0); margin-top: var(--s2); }
 .sim-state-head { display: flex; justify-content: space-between; align-items: end; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s2); }
-.sim-state-head h3 { margin: 0; font-size: var(--fs-2); }
+.sim-state-head .subhead { margin: 0; font-size: var(--fs-2); }
 .sim-regs { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.2rem, 1fr)); gap: 6px; }
 .sim.mini .sim-regs { grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); }
 .reg { background: var(--bg); border-radius: var(--r); padding: 6px 10px; display: grid; gap: 1px; min-width: 0; transition: background .2s; }
@@ -168,7 +168,7 @@
 .init-regs { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 8px; margin: var(--s3) 0; }
 .init-regs input { width: 100%; }
 .sim-bottom { grid-column: 1 / -1; }
-.sim-bottom h3 { margin-top: var(--s4); }
+.sim-bottom h2 { margin-top: var(--s4); }
 .trace-msg { font-size: .88rem; }
 
 /* ---- encoder ---- */

@@ -1,6 +1,6 @@
 /* Offline support. Network first so updates always arrive when online; the cache is the fallback.
    After one visit the whole site works with no connection. */
-const CACHE = 'datapath-v1';
+const CACHE = 'opcode-v1';
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (e) => {
   e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));

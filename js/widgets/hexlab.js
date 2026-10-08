@@ -73,7 +73,7 @@
       // the column grid; position p (0 = leftmost, 7 = rightmost)
       var ah = E.hexDigits(m.a), bh = E.hexDigits(m.bEff), rh = m.cols.result;
       var cols = m.cols.cols;                         // cols[0] is the rightmost column
-      var grid = h('div', { class: 'colgrid', role: 'table', 'aria-label': 'Column-by-column addition, rightmost column first' });
+      var grid = h('div', { class: 'colgrid', role: 'group', 'aria-label': 'Column-by-column addition, rightmost column first' });
       var carryRow = [], aRow = [], bRow = [], sRow = [], idxRow = [];
       for (var p = 0; p < 8; p++) {
         var k = 7 - p;                                // index into cols for this position
@@ -127,7 +127,7 @@
         h('div', {}, h('span', { class: 'lab' }, 'As unsigned'), h('div', { class: 'mono' }, fmtInt(res))),
         h('div', {}, h('span', { class: 'lab' }, 'As signed'), h('div', { class: 'mono' }, fmtInt(res | 0)))));
 
-      view.appendChild(h('h4', { class: 'hexlab-h' }, 'Flags'));
+      view.appendChild(h('div', { class: 'subhead hexlab-h' }, 'Flags'));
       view.appendChild(Lab.flagChips(f));
       var why = E.explainFlags(kind, m.a, m.b, res, f);
       view.appendChild(h('ul', { class: 'why-list' }, ['N', 'Z', 'C', 'V'].map(function (k) {
@@ -157,8 +157,8 @@
       st.timer = setInterval(function () { if (!root.isConnected) { stop(); return; } st.step++; if (st.step >= 8) stop(); render(); }, 650);
       render();
     }
-    function cell(t, cls) { return h('div', { class: 'cc ' + (cls || ''), role: 'cell' }, t); }
-    function rowLabel(t) { return h('div', { class: 'rl', role: 'rowheader' }, t); }
+    function cell(t, cls) { return h('div', { class: 'cc ' + (cls || '') }, t); }
+    function rowLabel(t) { return h('div', { class: 'rl' }, t); }
     function digitCells(s) { var out = [cell('', 'spacer')]; for (var i = 0; i < 8; i++) out.push(cell(s[i], '')); return out; }
     render(true);
   };

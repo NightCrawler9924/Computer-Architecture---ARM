@@ -1,4 +1,4 @@
-/* Datapath: bit-level maths.
+/* Opcode: bit-level maths.
    Pure functions, no DOM. Everything the site shows about hex, two's complement,
    flags, shifts and condition codes comes from here, so a number on screen can
    never disagree with the simulator. */

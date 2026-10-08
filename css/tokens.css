@@ -27,6 +27,7 @@
   --border: #DCDCD7;
   --border-subtle: #E7E7E3;
   --border-strong: #C2C2BB;
+  --border-input: #8A8A83;   /* form-control edges: 3:1 against every surface (WCAG 1.4.11) */
 
   /* the one accent */
   --accent: #2A4FD6;
@@ -52,7 +53,7 @@
   --code-reg: #9A4A00;
   --code-imm: #6B46C1;
   --code-label: #1B7A44;
-  --code-comment: #6F6F68;
+  --code-comment: #63635D;
 
   /* geometry and rhythm (4px base) */
   --radius: 8px;
@@ -84,7 +85,7 @@
   :root:not([data-theme="light"]):not([data-theme="dark"]) {
     --background: #101113; --background-subtle: #0B0C0E; --surface: #17181B; --surface-elevated: #1D1E22; --surface-hover: #232429;
     --foreground: #E8E8EA; --foreground-secondary: #B0B1B8; --foreground-muted: #8E8F97;
-    --border: #28292E; --border-subtle: #1F2024; --border-strong: #383941;
+    --border: #28292E; --border-subtle: #1F2024; --border-strong: #383941; --border-input: #6C6D76;
     --accent: #7B9BFF; --accent-hover: #9DB5FF; --accent-muted: #1B2544; --on-accent: #0A1020;
     --success: #5BCB8A; --success-muted: #13281C; --warning: #E0B04A; --warning-muted: #2A2210; --danger: #F28B82; --danger-muted: #331A19;
     --flag-n: #E8A55B; --flag-n-muted: #2D2111; --flag-z: #B9A0F2; --flag-z-muted: #251E3B; --flag-c: #5FCDBF; --flag-c-muted: #11302C; --flag-v: #F08FB1; --flag-v-muted: #361723;
@@ -97,7 +98,7 @@
 :root[data-theme="dark"] {
   --background: #101113; --background-subtle: #0B0C0E; --surface: #17181B; --surface-elevated: #1D1E22; --surface-hover: #232429;
   --foreground: #E8E8EA; --foreground-secondary: #B0B1B8; --foreground-muted: #8E8F97;
-  --border: #28292E; --border-subtle: #1F2024; --border-strong: #383941;
+  --border: #28292E; --border-subtle: #1F2024; --border-strong: #383941; --border-input: #6C6D76;
   --accent: #7B9BFF; --accent-hover: #9DB5FF; --accent-muted: #1B2544; --on-accent: #0A1020;
   --success: #5BCB8A; --success-muted: #13281C; --warning: #E0B04A; --warning-muted: #2A2210; --danger: #F28B82; --danger-muted: #331A19;
   --flag-n: #E8A55B; --flag-n-muted: #2D2111; --flag-z: #B9A0F2; --flag-z-muted: #251E3B; --flag-c: #5FCDBF; --flag-c-muted: #11302C; --flag-v: #F08FB1; --flag-v-muted: #361723;

@@ -98,7 +98,7 @@
     // toolbar
     var presetSel = null;
     if (!mini) {
-      presetSel = h('select', { id: 'sim-preset', 'aria-label': 'Load an example program' }, [h('option', { value: '' }, 'Load an example...')].concat(Lab.presets.map(function (p) { return h('option', { value: p.id }, p.title); })));
+      presetSel = h('select', { id: 'sim-preset', 'aria-label': 'Load an example program' }, [h('option', { value: '' }, 'Load an example…')].concat(Lab.presets.map(function (p) { return h('option', { value: p.id }, p.title); })));
       presetSel.addEventListener('change', function () { var p = Lab.presets.filter(function (x) { return x.id === presetSel.value; })[0]; if (p) loadPreset(p); presetSel.value = ''; });
     }
     var btnAsm = h('button', { class: 'btn btn-sm', type: 'button', title: 'Assemble and reset (Ctrl+Enter)' }, mini ? 'Reset' : 'Assemble and reset');
@@ -124,7 +124,7 @@
       editorCol.appendChild(errBox);
     }
     editorCol.appendChild(toolbar);
-    var listing = h('div', { class: 'sim-listing', role: 'table', 'aria-label': 'Assembled program' });
+    var listing = h('div', { class: 'sim-listing', role: 'group', 'aria-label': 'Assembled program. Select a line to toggle a breakpoint.' });
     editorCol.appendChild(listing);
     var hint = h('p', { class: 'muted sim-hint' }, editable ? 'Instructions start in the second column or later. Anything starting in the first column is a label. Click a line in the listing to set a breakpoint. Ctrl+Enter assembles.' : '');
     editorCol.appendChild(hint);
@@ -133,13 +133,13 @@
     var fmtSeg = h('div', { class: 'seg', role: 'group', 'aria-label': 'Number format' });
     function drawFmt() { Lab.clear(fmtSeg); [['hex', 'Hex'], ['u', 'Unsigned'], ['s', 'Signed'], ['bin', 'Binary']].forEach(function (f) { fmtSeg.appendChild(h('button', { type: 'button', 'aria-pressed': st.fmt === f[0] ? 'true' : 'false', onclick: function () { st.fmt = f[0]; drawFmt(); draw(); } }, f[1])); }); }
     drawFmt();
-    stateCol.appendChild(h('div', { class: 'sim-state-head' }, h('h3', {}, 'Registers'), fmtSeg));
+    stateCol.appendChild(h('div', { class: 'sim-state-head' }, h('div', { class: 'subhead' }, 'Registers'), fmtSeg));
     stateCol.appendChild(regBox);
     stateCol.appendChild(h('div', { class: 'sim-flagrow' }, h('span', { class: 'lab' }, 'Flags'), flagBox));
     stateCol.appendChild(msgBox);
     if (!mini || o.showMem) { stateCol.appendChild(memBox); }
     if (!mini) stateCol.appendChild(initBox);
-    if (!mini) wrap.appendChild(h('div', { class: 'sim-bottom' }, h('h3', {}, 'What happened, step by step'), traceBox));
+    if (!mini) wrap.appendChild(h('div', { class: 'sim-bottom' }, h('h2', { class: 'subhead' }, 'What happened, step by step'), traceBox));
 
     function drawGutter() { if (!gutter) return; var n = st.src.split('\n').length, s = ''; for (var i = 1; i <= n; i++) s += i + '\n'; gutter.textContent = s; }
 
@@ -212,7 +212,7 @@
         var isPC = cpu && !cpu.halted && cpu.pc === p.addr;
         var was = T && T.addr === p.addr;
         var w = E.encode(p);
-        var row = h('div', { class: 'lrow' + (isPC ? ' next' : '') + (was ? ' was' : '') + (st.bps[p.addr] ? ' bp' : '') + (was && T.skipped ? ' skipped' : ''), role: 'row', tabindex: 0, 'aria-label': 'Line ' + p.line + ': ' + p.text + (isPC ? ' (next to run)' : ''), 'aria-pressed': st.bps[p.addr] ? 'true' : 'false' },
+        var row = h('div', { class: 'lrow' + (isPC ? ' next' : '') + (was ? ' was' : '') + (st.bps[p.addr] ? ' bp' : '') + (was && T.skipped ? ' skipped' : ''), role: 'button', tabindex: 0, 'aria-label': 'Breakpoint on line ' + p.line + ': ' + p.text + (isPC ? ' (next to run)' : ''), 'aria-pressed': st.bps[p.addr] ? 'true' : 'false' },
           h('span', { class: 'ptr', 'aria-hidden': 'true' }, isPC ? '▶' : (st.bps[p.addr] ? '●' : '')),
           h('span', { class: 'addr mono' }, hx(p.addr, 4)),
           h('span', { class: 'word mono' }, w === null ? 'not encoded' : hx(w)),
@@ -260,15 +260,15 @@
       var cpu = st.cpu;
       var base = st.memBase !== null ? st.memBase : E.DATA_BASE;
       var f = Lab.hexField({ value: base, label: 'Memory window starts at', onChange: function (v) { st.memBase = (v & ~7) >>> 0; drawMemGrid(); } });
-      memBox.appendChild(h('div', { class: 'sim-state-head' }, h('h3', {}, 'Memory'), f.el));
+      memBox.appendChild(h('div', { class: 'sim-state-head' }, h('div', { class: 'subhead' }, 'Memory'), f.el));
       memBox.appendChild(h('div', { class: 'btn-row' }, [['Data (0x20000000)', E.DATA_BASE], ['Stack top (0x20007FC0)', 0x20007FC0], ['Slide data (0x20008000)', 0x20008000]].map(function (b) { return h('button', { class: 'btn btn-sm btn-quiet', type: 'button', onclick: function () { st.memBase = b[1]; f.set(b[1]); drawMemGrid(); } }, b[0]); })));
       var gridSlot = h('div'); memBox.appendChild(gridSlot);
       function drawMemGrid() {
         Lab.clear(gridSlot);
         var b0 = st.memBase !== null ? st.memBase : E.DATA_BASE;
-        var grid = h('div', { class: 'memtable', role: 'table', 'aria-label': 'Memory bytes' });
+        var grid = h('div', { class: 'memtable', role: 'group', 'aria-label': 'Memory bytes' });
         for (var r = 0; r < 4; r++) {
-          var row = h('div', { class: 'mrow', role: 'row' }, h('span', { class: 'addr mono' }, hx((b0 + r * 8) >>> 0)));
+          var row = h('div', { class: 'mrow' }, h('span', { class: 'addr mono' }, hx((b0 + r * 8) >>> 0)));
           for (var c = 0; c < 8; c++) {
             var a = (b0 + r * 8 + c) >>> 0, v = cpu ? cpu.readByte(a) : 0, t = cpu ? cpu.touched.get(a) : null;
             row.appendChild(h('span', { class: 'mb mono' + (t === 'r' ? ' read' : t === 'w' ? ' wrote' : ''), title: hx(a) }, v.toString(16).toUpperCase().padStart(2, '0')));
