@@ -1,0 +1,126 @@
+/* ENGR 359 Learning Lab: design tokens.
+
+   Principles
+   - Hierarchy comes from tone, type and spacing. Not from shadows, gradients or decoration.
+   - Light and dark are tuned independently, not inverted.
+   - One accent (cobalt) for action, selection and focus. Nothing else is branded.
+   - N, Z, C and V keep fixed hues across the product and are always paired with their letter.
+   - One radius family: --radius for controls and surfaces, --radius-sm for small inline pieces.
+
+   Semantic tokens are the source of truth. The short aliases at the bottom exist so older
+   component rules keep working; new rules should use the semantic names. */
+
+:root {
+  /* surfaces, light: tone separates layers; page < inset < raised */
+  --background: #F5F5F3;
+  --background-subtle: #EDEDEA;
+  --surface: #FBFBFA;
+  --surface-elevated: #FFFFFF;
+  --surface-hover: #E6E6E2;
+
+  /* text */
+  --foreground: #191918;
+  --foreground-secondary: #4B4B47;
+  --foreground-muted: #62625C;
+
+  /* borders */
+  --border: #DCDCD7;
+  --border-subtle: #E7E7E3;
+  --border-strong: #C2C2BB;
+
+  /* the one accent */
+  --accent: #2A4FD6;
+  --accent-hover: #1F3FB5;
+  --accent-muted: #E3E9FB;
+  --on-accent: #FFFFFF;
+
+  /* semantic state */
+  --success: #1B7A44;  --success-muted: #DEF2E6;
+  --warning: #8F5F00;  --warning-muted: #F5ECD0;
+  --danger:  #B3261E;  --danger-muted:  #FAE3E1;
+
+  /* the four condition flags */
+  --flag-n: #9A5200;  --flag-n-muted: #F6E9DA;
+  --flag-z: #6B46C1;  --flag-z-muted: #EBE5F7;
+  --flag-c: #0B7467;  --flag-c-muted: #D9F0EC;
+  --flag-v: #B02A5C;  --flag-v-muted: #F8E1E9;
+
+  /* code and listings */
+  --code-bg: #EFEFEB;
+  --code-ink: #1F1F1D;
+  --code-mnemonic: #0A5BB5;
+  --code-reg: #9A4A00;
+  --code-imm: #6B46C1;
+  --code-label: #1B7A44;
+  --code-comment: #6F6F68;
+
+  /* geometry and rhythm (4px base) */
+  --radius: 8px;
+  --radius-sm: 4px;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --shadow-pop: 0 4px 16px rgba(25, 25, 24, .10), 0 0 0 1px var(--border);
+  --ring: 0 0 0 2px var(--background), 0 0 0 4px var(--accent);
+
+  /* type: one family, plus mono for code and numbers */
+  --font: ui-sans-serif, system-ui, -apple-system, 'Segoe UI Variable Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, 'Cascadia Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: clamp(1.9rem, 1.2rem + 2.6vw, 2.6rem);
+  --ease: cubic-bezier(.2, 0, 0, 1);
+  --dur: 140ms;
+
+  --header-h: 52px;
+  --sidebar-w: 288px;
+  --measure: 40rem;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --background: #101113; --background-subtle: #0B0C0E; --surface: #17181B; --surface-elevated: #1D1E22; --surface-hover: #232429;
+    --foreground: #E8E8EA; --foreground-secondary: #B0B1B8; --foreground-muted: #8E8F97;
+    --border: #28292E; --border-subtle: #1F2024; --border-strong: #383941;
+    --accent: #7B9BFF; --accent-hover: #9DB5FF; --accent-muted: #1B2544; --on-accent: #0A1020;
+    --success: #5BCB8A; --success-muted: #13281C; --warning: #E0B04A; --warning-muted: #2A2210; --danger: #F28B82; --danger-muted: #331A19;
+    --flag-n: #E8A55B; --flag-n-muted: #2D2111; --flag-z: #B9A0F2; --flag-z-muted: #251E3B; --flag-c: #5FCDBF; --flag-c-muted: #11302C; --flag-v: #F08FB1; --flag-v-muted: #361723;
+    --code-bg: #0B0C0E; --code-ink: #E6E6E8; --code-mnemonic: #79B8FF; --code-reg: #FFB36B; --code-imm: #C8A8FF; --code-label: #7EDC9D; --code-comment: #7C7D86;
+    --shadow-pop: 0 8px 24px rgba(0, 0, 0, .5), 0 0 0 1px var(--border);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --background: #101113; --background-subtle: #0B0C0E; --surface: #17181B; --surface-elevated: #1D1E22; --surface-hover: #232429;
+  --foreground: #E8E8EA; --foreground-secondary: #B0B1B8; --foreground-muted: #8E8F97;
+  --border: #28292E; --border-subtle: #1F2024; --border-strong: #383941;
+  --accent: #7B9BFF; --accent-hover: #9DB5FF; --accent-muted: #1B2544; --on-accent: #0A1020;
+  --success: #5BCB8A; --success-muted: #13281C; --warning: #E0B04A; --warning-muted: #2A2210; --danger: #F28B82; --danger-muted: #331A19;
+  --flag-n: #E8A55B; --flag-n-muted: #2D2111; --flag-z: #B9A0F2; --flag-z-muted: #251E3B; --flag-c: #5FCDBF; --flag-c-muted: #11302C; --flag-v: #F08FB1; --flag-v-muted: #361723;
+  --code-bg: #0B0C0E; --code-ink: #E6E6E8; --code-mnemonic: #79B8FF; --code-reg: #FFB36B; --code-imm: #C8A8FF; --code-label: #7EDC9D; --code-comment: #7C7D86;
+  --shadow-pop: 0 8px 24px rgba(0, 0, 0, .5), 0 0 0 1px var(--border);
+  color-scheme: dark;
+}
+
+/* aliases for older component rules */
+:root, :root[data-theme] {
+  --bg: var(--background);
+  --surface-2: var(--background-subtle);
+  --surface-3: var(--surface-hover);
+  --ink: var(--foreground); --ink-2: var(--foreground-secondary); --ink-3: var(--foreground-muted);
+  --line: var(--border); --line-strong: var(--border-strong);
+  --accent-strong: var(--accent-hover); --accent-soft: var(--accent-muted);
+  --good: var(--success); --good-soft: var(--success-muted);
+  --bad: var(--danger); --bad-soft: var(--danger-muted);
+  --note: var(--warning); --note-soft: var(--warning-muted);
+  --fN: var(--flag-n); --fN-soft: var(--flag-n-muted); --fZ: var(--flag-z); --fZ-soft: var(--flag-z-muted);
+  --fC: var(--flag-c); --fC-soft: var(--flag-c-muted); --fV: var(--flag-v); --fV-soft: var(--flag-v-muted);
+  --r: var(--radius); --r-sm: var(--radius-sm);
+  --font-body: var(--font); --font-display: var(--font);
+  --fs-0: var(--text-sm); --fs-1: var(--text-md); --fs-2: var(--text-lg); --fs-3: var(--text-xl); --fs-4: var(--text-2xl); --fs-5: var(--text-3xl);
+  --shadow: var(--shadow-pop);
+}

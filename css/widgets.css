@@ -1,0 +1,257 @@
+/* Styles for the interactive widgets. Colours come from tokens.css only. */
+
+.widget-card { padding: var(--s5); }
+.widget { min-width: 0; }
+.lab { display: block; font-size: var(--fs-0); font-weight: 600; color: var(--ink-2); }
+.big { font-size: 1.35rem; font-weight: 600; }
+.figure { margin: var(--s4) 0; }
+.figure svg { max-width: 100%; height: auto; display: block; }
+.figure figcaption { margin-top: var(--s2); font-size: var(--fs-0); }
+.why-list { list-style: none; margin: var(--s3) 0; padding: 0; display: grid; gap: 6px; font-size: var(--fs-1); }
+.why-list li { padding: 8px 12px; background: var(--bg); border-radius: var(--r); }
+.two-readings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3); margin: var(--s3) 0; }
+.two-readings > div { background: var(--bg); padding: var(--s3) var(--s4); border-radius: var(--r); }
+.two-readings p { margin: 4px 0 0; font-size: var(--fs-1); }
+.load-out { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--s3); margin: var(--s3) 0; }
+.load-out > div { background: var(--bg); padding: var(--s3) var(--s4); border-radius: var(--r); }
+.preset-row { margin: var(--s2) 0 var(--s3); }
+
+/* ---- hex lab column grid ---- */
+.hexlab-eq { font-size: var(--fs-2); margin: var(--s3) 0; }
+.hexlab-note { font-size: var(--fs-1); color: var(--ink-2); }
+.hexlab-narr { min-height: 3.2em; padding: var(--s3) var(--s4); background: var(--bg); border-radius: var(--r); font-size: var(--fs-1); }
+.hexlab-h { margin: var(--s4) 0 var(--s2); }
+.hexlab-result { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--s3); margin: var(--s4) 0; }
+.hexlab-result > div { background: var(--bg); padding: var(--s3) var(--s4); border-radius: var(--r); min-width: 0; overflow-wrap: anywhere; }
+.colgrid { display: grid; grid-template-columns: minmax(3.6rem, auto) repeat(9, minmax(1.45rem, 2.5rem)); gap: 4px; align-items: center; overflow-x: auto; padding: 4px 0 8px; font-family: var(--font-mono); }
+.colgrid.small { margin-bottom: var(--s3); }
+.colgrid .rl { font-family: var(--font-body); font-size: var(--fs-0); font-weight: 600; color: var(--ink-2); white-space: nowrap; padding-right: 6px; }
+.cc { height: 38px; display: grid; place-items: center; background: var(--surface-2); border-radius: var(--r-sm); font-size: 1.15rem; font-weight: 600; transition: background .2s, color .2s; }
+.cc.spacer { background: transparent; }
+.cc.carry { height: 26px; font-size: .9rem; background: transparent; color: var(--ink-3); }
+.cc.carry.on { color: var(--fC); background: var(--fC-soft); }
+.cc.carry.hidden, .cc.sum.hidden { opacity: .35; }
+.cc.sum { background: var(--accent-soft); color: var(--accent-strong); }
+.cc.sum.now { box-shadow: inset 0 0 0 2px var(--accent); }
+.cc.cout { background: var(--surface-2); color: var(--ink-3); }
+.cc.cout.on { background: var(--fC-soft); color: var(--fC); box-shadow: inset 0 0 0 2px var(--fC); }
+.cc.idx { height: 22px; font-size: .75rem; color: var(--ink-3); background: transparent; }
+
+/* ---- shifter ---- */
+.shift-arrow { margin: 6px 0 10px; color: var(--ink-3); font-size: var(--fs-1); }
+.shift-result { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--s3); margin: var(--s4) 0 var(--s2); }
+.shift-result > div { background: var(--bg); padding: var(--s3) var(--s4); border-radius: var(--r); overflow-wrap: anywhere; }
+.shift-amt { min-width: 12rem; flex: 1 1 12rem; }
+.shifter-view .bits { margin-bottom: 4px; }
+
+/* ---- conditions ---- */
+.cond-yes { color: var(--good); font-weight: 650; white-space: nowrap; }
+.cond-no { color: var(--ink-3); white-space: nowrap; }
+
+/* ---- memory ---- */
+.memstacks { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: var(--s4); margin: var(--s4) 0; }
+.memstack { background: var(--bg); padding: var(--s4); border-radius: var(--r); }
+.memstack h4 { margin: 0 0 4px; font-size: var(--fs-2); }
+.memstack p { margin: 0 0 var(--s3); font-size: var(--fs-0); }
+.memrow { display: grid; grid-template-columns: 7.5rem 3rem 1fr; gap: 10px; align-items: center; padding: 3px 0; }
+.addr { color: var(--ink-3); font-size: .82rem; }
+.bytecell { display: grid; place-items: center; height: 34px; border-radius: var(--r-sm); font-weight: 600; font-size: 1.05rem; color: var(--ink); }
+.bytecell.b3 { background: color-mix(in srgb, var(--accent) 38%, var(--surface)); }
+.bytecell.b2 { background: color-mix(in srgb, var(--accent) 26%, var(--surface)); }
+.bytecell.b1 { background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
+.bytecell.b0 { background: color-mix(in srgb, var(--accent) 8%, var(--surface)); }
+.sig { font-size: var(--fs-0); color: var(--ink-3); }
+.memedit { display: flex; gap: 6px; flex-wrap: wrap; }
+.memedit .field { gap: 2px; text-align: center; }
+.memgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.2rem, 1fr)); gap: 4px; margin: var(--s3) 0; }
+.mcell { display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: center; background: var(--surface-2); padding: 6px 10px; border-radius: var(--r-sm); }
+.mcell .val { font-weight: 600; }
+.mcell.read { background: var(--good-soft); box-shadow: inset 0 0 0 1px var(--good); }
+.mcell.wrote { background: var(--note-soft); box-shadow: inset 0 0 0 1px var(--note); }
+
+/* ---- buses ---- */
+.busdiag { color: var(--ink-3); }
+.busdiag .bx rect { fill: var(--surface-2); stroke: var(--line-strong); stroke-width: 1.5; }
+.busdiag .bx.busy rect { fill: var(--note-soft); stroke: var(--note); }
+.busdiag .bt { fill: var(--ink); font: 700 18px var(--font-display); }
+.busdiag .bs { fill: var(--ink-3); font: 12px var(--font-body); }
+.busdiag .memval { fill: var(--ink); font: 600 15px var(--font-mono); }
+.busdiag .bus line { stroke: var(--line-strong); stroke-width: 3; }
+.busdiag .bus.active line { stroke: var(--accent); stroke-width: 4; }
+.busdiag .bus { color: var(--line-strong); }
+.busdiag .bus.active { color: var(--accent); }
+.busdiag .bl { fill: var(--ink-2); font: 600 12px var(--font-body); }
+.busdiag .bv { fill: var(--ink-3); font: 600 14px var(--font-mono); }
+.busdiag .bus.active .bv { fill: var(--accent-strong); }
+.cycle-steps { list-style: none; margin: var(--s3) 0; padding: 0; counter-reset: cs; display: grid; gap: 6px; }
+.cycle-steps li { counter-increment: cs; padding: 8px 12px 8px 44px; position: relative; border-radius: var(--r); background: var(--bg); color: var(--ink-3); font-size: var(--fs-1); }
+.cycle-steps li::before { content: counter(cs); position: absolute; left: 12px; top: 8px; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; background: var(--surface-3); font: 700 var(--fs-0) var(--font-mono); }
+.cycle-steps li.done { color: var(--ink); } .cycle-steps li.done::before { background: var(--accent); color: var(--on-accent); }
+.cycle-steps li[aria-current="step"] { background: var(--accent-soft); }
+.cycle-steps li p { margin: 4px 0 0; color: var(--ink-2); }
+
+/* ---- DRAM ---- */
+.dram-view { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: var(--s4); align-items: center; margin: var(--s3) 0; }
+.charge { position: relative; height: 120px; border-radius: var(--r); background: var(--surface-2); overflow: hidden; box-shadow: inset 0 0 0 1px var(--line-strong); }
+.charge-fill { position: absolute; left: 0; right: 0; bottom: 0; background: var(--accent); transition: height .08s linear; }
+.charge-fill.low { background: var(--bad); }
+.charge-thr { position: absolute; left: 0; right: 0; bottom: 50%; border-top: 2px dashed var(--ink-2); }
+.cycle-compare { margin-top: var(--s3); display: grid; gap: 6px; }
+.tl-row { display: flex; align-items: center; gap: 8px; }
+.tl-lab { width: 6.5rem; font-size: var(--fs-0); color: var(--ink-2); }
+.tl-bar { padding: 4px 8px; font-size: var(--fs-0); font-weight: 600; border-radius: var(--r-sm); }
+.tl-bar.a { background: var(--accent-soft); color: var(--accent-strong); } .tl-bar.b { background: var(--note-soft); color: var(--note); }
+
+/* ---- fetch-decode-execute ---- */
+.phase-row { display: flex; gap: 6px; margin-bottom: var(--s3); }
+.phase { flex: 1; padding: 8px 12px; text-align: center; border-radius: var(--r); background: var(--surface-2); color: var(--ink-3); font-weight: 600; font-size: var(--fs-1); }
+.phase.on { background: var(--accent); color: var(--on-accent); } .phase.past { background: var(--accent-soft); color: var(--accent-strong); }
+.cycle-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--s4); }
+.memlist { background: var(--bg); border-radius: var(--r); padding: var(--s3); min-width: 0; overflow-x: auto; }
+.memhead { font-size: var(--fs-0); font-weight: 600; color: var(--ink-2); margin-bottom: 6px; }
+.memline { display: grid; grid-template-columns: 4.2rem 6.6rem 1fr; gap: 10px; padding: 5px 8px; border-radius: var(--r-sm); font-size: .86rem; white-space: nowrap; }
+.memline.pc { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+.memline .word { color: var(--ink-2); }
+.cpubox { display: grid; gap: var(--s2); align-content: start; min-width: 0; }
+.cpurow { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: var(--s2); }
+.cpureg { background: var(--bg); padding: 8px 10px; border-radius: var(--r); display: grid; gap: 2px; min-width: 0; }
+.cpureg .rn { font-size: var(--fs-0); font-weight: 600; color: var(--ink-3); }
+.cpureg .rv { font-size: .88rem; overflow-wrap: anywhere; }
+.cpureg.hot { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+.cycle-narr { margin: var(--s3) 0; padding: var(--s3) var(--s4); background: var(--bg); border-radius: var(--r); min-height: 4.5em; font-size: var(--fs-1); }
+.cycle-narr > :last-child { margin-bottom: 0; }
+
+/* ---- simulator ---- */
+.sim { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--s5); align-items: start; }
+.sim.mini { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--s4); }
+.sim-left, .sim-right { min-width: 0; }
+.sim-card { background: var(--surface); border-radius: var(--r); padding: var(--s5); box-shadow: 0 0 0 1px var(--line); }
+.sim-editor { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); background: var(--code-bg); border-radius: var(--r); overflow: hidden; }
+.sim-gutter { white-space: pre; text-align: right; padding: 10px 8px 10px 0; color: var(--code-comment); font-size: .88rem; line-height: 1.5; overflow: hidden; user-select: none; }
+.sim-src { border: 0; border-radius: 0; background: transparent; color: var(--code-ink); font: 500 .88rem/1.5 var(--font-mono); padding: 10px 12px; width: 100%; resize: vertical; white-space: pre; overflow: auto; tab-size: 4; }
+.sim-src:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.sim-errors { margin: var(--s2) 0; display: grid; gap: 6px; }
+.sim-err { margin: 0; font-size: var(--fs-1); padding: 8px 12px; }
+.linkish { background: none; border: 0; color: var(--accent); font: inherit; font-weight: 700; cursor: pointer; padding: 0; text-decoration: underline; }
+.sim-tools { margin: var(--s3) 0; }
+.sim-listing { background: var(--code-bg); border-radius: var(--r); padding: 6px; max-height: 24rem; overflow: auto; }
+.lrow { display: grid; grid-template-columns: 1.3rem 4.2rem 6.8rem 1fr; gap: 8px; align-items: center; padding: 4px 8px; border-radius: var(--r-sm); font-size: .86rem; cursor: pointer; white-space: nowrap; color: var(--code-ink); }
+.lrow:hover { background: color-mix(in srgb, var(--accent) 10%, var(--code-bg)); }
+.lrow.next { background: color-mix(in srgb, var(--accent) 22%, var(--code-bg)); box-shadow: inset 0 0 0 1px var(--accent); }
+.lrow.was { background: color-mix(in srgb, var(--good) 14%, var(--code-bg)); }
+.lrow.was.skipped { opacity: .6; text-decoration: line-through; text-decoration-color: var(--code-comment); }
+.lrow.bp .ptr { color: var(--bad); }
+.lrow .ptr { color: var(--accent); font-size: .8rem; text-align: center; }
+.lrow .addr { color: var(--code-comment); } .lrow .word { color: var(--code-comment); }
+.lnote { font-size: var(--fs-0); padding: 2px 12px 6px 40px; }
+.sim-hint { font-size: var(--fs-0); margin-top: var(--s2); }
+.sim-state-head { display: flex; justify-content: space-between; align-items: end; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s2); }
+.sim-state-head h3 { margin: 0; font-size: var(--fs-2); }
+.sim-regs { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.2rem, 1fr)); gap: 6px; }
+.sim.mini .sim-regs { grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); }
+.reg { background: var(--bg); border-radius: var(--r); padding: 6px 10px; display: grid; gap: 1px; min-width: 0; transition: background .2s; }
+.reg .rn { font-size: .75rem; font-weight: 700; color: var(--ink-3); }
+.reg .rv { font-size: .82rem; overflow-wrap: anywhere; }
+.reg.changed { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+.sim-flagrow { display: flex; align-items: center; gap: var(--s3); margin: var(--s3) 0; flex-wrap: wrap; }
+.sim-msg { background: var(--bg); border-radius: var(--r); padding: var(--s3) var(--s4); font-size: var(--fs-1); min-height: 5em; }
+.sim-msg p { margin: 6px 0 0; }
+.msg-line { overflow-wrap: anywhere; }
+.sim-mem { margin-top: var(--s4); }
+.memtable { display: grid; gap: 4px; font-size: .82rem; overflow-x: auto; }
+.mrow { display: grid; grid-template-columns: 7.4rem repeat(8, minmax(1.8rem, 1fr)); gap: 3px; align-items: center; }
+.mb { text-align: center; background: var(--surface-2); border-radius: var(--r-sm); padding: 3px 0; }
+.mb.read { background: var(--good-soft); color: var(--good); box-shadow: inset 0 0 0 1px var(--good); }
+.mb.wrote { background: var(--note-soft); color: var(--note); box-shadow: inset 0 0 0 1px var(--note); }
+.sim-init { margin-top: var(--s4); background: var(--bg); border-radius: var(--r); padding: var(--s3) var(--s4); }
+.sim-init summary { cursor: pointer; font-weight: 600; }
+.init-regs { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 8px; margin: var(--s3) 0; }
+.init-regs input { width: 100%; }
+.sim-bottom { grid-column: 1 / -1; }
+.sim-bottom h3 { margin-top: var(--s4); }
+.trace-msg { font-size: .88rem; }
+
+/* ---- encoder ---- */
+.enc-word { margin: var(--s3) 0; }
+.wordstrip { display: flex; flex-wrap: wrap; gap: 3px; margin: var(--s3) 0; }
+.fld { display: grid; text-align: center; padding: 6px 6px 4px; border-radius: var(--r-sm); background: var(--surface-2); min-width: 1.6rem; }
+.fld .fb { font-weight: 600; letter-spacing: .06em; }
+.fld .fn { font-size: .68rem; color: var(--ink-3); font-family: var(--font-body); font-weight: 600; }
+.fld.cond { background: color-mix(in srgb, var(--ink-3) 22%, var(--surface)); }
+.fld.op { background: var(--accent-soft); }
+.fld.reg { background: color-mix(in srgb, var(--code-reg) 20%, var(--surface)); }
+.fld.imm { background: color-mix(in srgb, var(--code-imm) 20%, var(--surface)); }
+
+/* ---- calc / trace table ---- */
+.given { margin-bottom: var(--s3); }
+.given .table-wrap { max-width: 22rem; }
+.trace-table { display: grid; gap: 4px; min-width: 40rem; }
+.trow { display: grid; grid-template-columns: minmax(10rem, 1.3fr) repeat(var(--cols, 3), minmax(8rem, 1fr)) minmax(11rem, 1.4fr); gap: 8px; align-items: center; padding: 6px 8px; border-radius: var(--r); background: var(--bg); }
+.trow.thead { background: var(--surface-3); font-size: var(--fs-0); font-weight: 600; color: var(--ink-2); }
+.trow.row-ok { box-shadow: inset 0 0 0 1px var(--good); }
+.trow.row-bad { box-shadow: inset 0 0 0 1px var(--bad); }
+.trow input { width: 100%; }
+.trow .flags { gap: 4px; } .trow .flag { padding: 3px 8px; font-size: .85rem; gap: 4px; }
+.cell-code { white-space: nowrap; font-size: .88rem; }
+
+/* ---- lab hardware ---- */
+.clock-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--s4); margin: var(--s3) 0; }
+.lcd { background: #000; color: #fff; font-size: 2.1rem; padding: 18px 20px; border-radius: var(--r); white-space: pre; letter-spacing: .04em; min-height: 3.2rem; box-shadow: inset 0 0 0 3px #333; }
+.serial { background: var(--code-bg); color: var(--code-ink); padding: 10px 14px; border-radius: var(--r); min-height: 6.5rem; font-size: .88rem; line-height: 1.6; }
+.pwmsvg, .chart { width: 100%; height: auto; display: block; margin: var(--s3) 0; }
+.backlight-row { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--s4); align-items: center; }
+.lcd-prev { height: 4.5rem; background: #fff; color: #000; display: grid; place-items: center; border-radius: var(--r); font-weight: 600; box-shadow: inset 0 0 0 2px var(--line-strong); }
+
+/* ---- diagrams ---- */
+.layers { display: grid; gap: 4px; max-width: 30rem; margin: var(--s4) 0; }
+.layer { padding: 9px 14px; border-radius: var(--r); font-weight: 600; font-size: var(--fs-1); }
+.layer.isa { border: 2px dashed var(--accent); background: var(--surface); color: var(--accent-strong); }
+.layer.sw { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); } .layer.hw { background: color-mix(in srgb, var(--ink-3) 22%, var(--surface)); }
+.hier { display: grid; gap: 6px; margin: var(--s4) 0; }
+.hier-row { display: grid; grid-template-columns: 11rem minmax(0, 1fr) 8rem; gap: var(--s3); align-items: center; font-size: var(--fs-1); }
+.hier-bar { height: 22px; background: var(--surface-2); border-radius: var(--r-sm); position: relative; }
+.hier-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); border-radius: var(--r-sm); }
+
+@media (max-width: 980px) {
+  .sim, .sim.mini { grid-template-columns: minmax(0, 1fr); }
+  .cycle-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .two-readings { grid-template-columns: minmax(0, 1fr); }
+  .hier-row { grid-template-columns: 8rem minmax(0, 1fr); } .hier-row span:last-child { display: none; }
+  .backlight-row { grid-template-columns: minmax(0, 1fr); }
+  .memrow { grid-template-columns: 6rem 2.6rem 1fr; }
+  .colgrid { grid-template-columns: minmax(3.6rem, auto) repeat(9, minmax(1.5rem, 2rem)); }
+  .cc { height: 32px; font-size: 1rem; }
+}
+
+/* ---- register map and datapath diagrams ---- */
+.regs-fig { display: grid; gap: var(--s3); }
+.regmap { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 4px; }
+.rm { background: var(--surface-2); border-radius: var(--r-sm); padding: 6px 10px; display: grid; gap: 1px; }
+.rm .rn { font-weight: 700; font-size: .9rem; } .rm .rr { font-size: .72rem; color: var(--ink-3); }
+.rm.special { background: var(--accent-soft); } .rm.special .rr { color: var(--accent-strong); }
+.psr { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; }
+.psr-bits { display: flex; gap: 3px; }
+.pb { display: grid; place-items: center; min-width: 3rem; padding: 4px 10px; border-radius: var(--r-sm); background: var(--surface-2); }
+.pb .pbi { font-size: .7rem; color: var(--ink-3); } .pb .pbk { font-weight: 700; }
+.pb.fN { background: var(--fN-soft); color: var(--fN); } .pb.fZ { background: var(--fZ-soft); color: var(--fZ); } .pb.fC { background: var(--fC-soft); color: var(--fC); } .pb.fV { background: var(--fV-soft); color: var(--fV); }
+.orgsvg { color: var(--ink-3); }
+.orgsvg .ob rect { fill: var(--surface-2); stroke: var(--line-strong); stroke-width: 1.5; }
+.orgsvg .ob.ctl rect { fill: var(--accent-soft); stroke: var(--accent); }
+.orgsvg .ob text { fill: var(--ink); font: 600 12px var(--font-body); }
+.orgsvg .ob.ctl text { writing-mode: vertical-rl; font-size: 13px; }
+.orgsvg .ol line { stroke: currentColor; stroke-width: 2; }
+.orgsvg .olt { fill: var(--ink-2); font: 11px var(--font-body); }
+
+/* ---- reference page ---- */
+.gloss { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: var(--s2); margin-top: var(--s3); }
+.gl-item { background: var(--surface); border-radius: var(--r); padding: var(--s3) var(--s4); box-shadow: 0 0 0 1px var(--line); }
+.gl-item dt { font-weight: 650; margin-bottom: 2px; } .gl-item dd { margin: 0; font-size: var(--fs-1); color: var(--ink-2); }
+.practice-chips { margin: var(--s4) 0; } .practice-chips .seg { max-width: 100%; }
+.practice-stats { margin-bottom: var(--s3); font-size: var(--fs-1); }
+.lesson > .wide { max-width: 100%; }
+
+/* toy trace (Homework 1 Problem 4) */
+.trace-table.toy { min-width: 44rem; }
+.trow.toyrow { grid-template-columns: minmax(14rem, 2.6fr) 5rem repeat(3, minmax(7.5rem, 1fr)); }
