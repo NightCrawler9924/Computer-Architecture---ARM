@@ -6,13 +6,14 @@
 <meta name="theme-color" content="#F5F5F3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101113" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>ENGR 359 Learning Lab</title>
-<meta name="description" content="An interactive course for ENGR 359 Microcomputer Engineering: ARM assembly, flags, memory, simulators and practice, explained from zero.">
+<meta name="apple-mobile-web-app-title" content="Datapath">
+<title>Datapath: learn how computers run code</title>
+<meta name="description" content="Datapath is an interactive course in microcomputer engineering: ARM assembly, flags, memory and buses, with a simulator, hands-on tools and practice. Built for engineers, works on a phone.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/site.css">
 <link rel="stylesheet" href="css/widgets.css">
+<link rel="stylesheet" href="css/site.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -20,7 +21,7 @@
   <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-label="Open course map" aria-expanded="false" aria-controls="sidebar">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
   </button>
-  <a class="brand" href="#/">ENGR 359<span>Learning Lab</span></a>
+  <a class="brand" href="#/">Datapath<span>ENGR 359</span></a>
   <nav class="topnav" aria-label="Main">
     <a href="#/" data-top="course">Course</a>
     <a href="#/labs" data-top="labs">Labs</a>
@@ -43,6 +44,13 @@
   <aside class="sidebar" id="sidebar" aria-label="Course navigation"></aside>
   <main class="main" id="main" tabindex="-1"></main>
 </div>
+<nav class="tabbar" aria-label="Primary">
+  <a href="#/" data-top="course"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H20v14H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20"/></svg><span>Course</span></a>
+  <a href="#/labs" data-top="labs"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/></svg><span>Labs</span></a>
+  <a href="#/sim" data-top="sim"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6l6 6-6 6M12 18h8"/></svg><span>Simulator</span></a>
+  <a href="#/practice" data-top="practice"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg><span>Practice</span></a>
+  <a href="#/reference" data-top="reference"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14M5 10h14M5 15h9M5 20h9"/></svg><span>Reference</span></a>
+</nav>
 <noscript><p style="padding:24px">This site needs JavaScript. It runs entirely in your browser and sends nothing anywhere.</p></noscript>
 
 <!-- engine -->

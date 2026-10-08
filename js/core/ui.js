@@ -27,6 +27,7 @@
         else el.setAttribute(k, v);
       });
     }
+    if ((tag === 'input' && (el.type === 'text' || !el.type)) || tag === 'textarea') { el.setAttribute('autocapitalize', 'off'); el.setAttribute('autocorrect', 'off'); el.setAttribute('spellcheck', 'false'); }
     for (var i = 2; i < arguments.length; i++) append(el, arguments[i]);
     return el;
   };

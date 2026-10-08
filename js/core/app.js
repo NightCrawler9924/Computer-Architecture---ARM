@@ -57,7 +57,7 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-route]'), function (a) {
       if (a.getAttribute('data-route') === current) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
-    Array.prototype.forEach.call(document.querySelectorAll('.topnav a'), function (a) {
+    Array.prototype.forEach.call(document.querySelectorAll('.topnav a, .tabbar a'), function (a) {
       var r = a.getAttribute('data-top'), inCourse = /^(lesson|unit|home)/.test(current) || current === '', on;
       if (r === 'course') on = inCourse && Lab.track === 'course';
       else if (r === 'labs') on = current === 'labs' || (inCourse && Lab.track === 'labs' && current !== 'home');
@@ -91,7 +91,7 @@
     var page = Lab.pages[r.name];
     var wrap = h('div', { class: 'page' });
     main.appendChild(wrap);
-    if (!page) { wrap.appendChild(h('h1', {}, 'Page not found')); wrap.appendChild(h('p', {}, 'There is no page called "' + r.name + '". Try the course map on the left.')); document.title = 'Not found | ENGR 359 Learning Lab'; }
+    if (!page) { wrap.appendChild(h('h1', {}, 'Page not found')); wrap.appendChild(h('p', {}, 'There is no page called "' + r.name + '". Try the course map on the left.')); document.title = 'Not found | Datapath'; }
     else { try { page(wrap, r.arg); } catch (e) { wrap.appendChild(h('p', { class: 'muted' }, 'Something went wrong loading this page: ' + e.message)); if (window.console) console.error(e); } }
     markCurrent();
     var hd = wrap.querySelector('h1');
@@ -99,7 +99,7 @@
     main.focus({ preventScroll: true });
   }
   Lab.go = function (hash) { location.hash = hash; };
-  Lab.setTitle = function (t) { document.title = t ? t + ' | ENGR 359 Learning Lab' : 'ENGR 359 Learning Lab'; };
+  Lab.setTitle = function (t) { document.title = t ? t + ' | Datapath' : 'Datapath: learn how computers run code'; };
 
   /* ---------- pages ---------- */
   Lab.pages.home = function (el) {
@@ -259,6 +259,7 @@
       var s = document.querySelector('.scrim');
       if (open && !s) { var sc = h('div', { class: 'scrim', onclick: function () { document.body.classList.remove('nav-open'); sc.remove(); } }); document.body.appendChild(sc); } else if (!open && s) s.remove();
     });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('nav-open')) { document.body.classList.remove('nav-open'); var sc = document.querySelector('.scrim'); if (sc) sc.remove(); var t = document.getElementById('nav-toggle'); t.setAttribute('aria-expanded', 'false'); t.focus(); } });
     window.addEventListener('hashchange', route);
     route();
   }

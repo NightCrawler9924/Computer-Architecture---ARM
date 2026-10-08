@@ -1,7 +1,7 @@
 {
-  "name": "ENGR 359 Learning Lab",
-  "short_name": "ENGR 359",
-  "description": "Interactive ENGR 359 Microcomputer Engineering: ARM assembly, flags, memory, simulators and practice.",
+  "name": "Datapath",
+  "short_name": "Datapath",
+  "description": "Interactive microcomputer engineering: ARM assembly, flags, memory and buses, with a simulator and practice.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

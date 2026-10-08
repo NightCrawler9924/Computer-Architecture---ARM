@@ -1,4 +1,4 @@
-/* ENGR 359 Learning Lab — a small 32-bit ARM-state assembler, encoder and CPU.
+/* Datapath: a small 32-bit ARM-state assembler, encoder and CPU.
    Models what Modules 2-3 and Handout 03 teach: 16 registers, N/Z/C/V, conditional
    execution of everything, the barrel shifter, load/store with pre/post/auto indexing,
    multiply, branches. Instructions are 32 bits and the PC advances by 4, as in the course.

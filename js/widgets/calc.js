@@ -94,7 +94,7 @@
       var st = { regs: {}, f: Object.assign({}, prev.f), inputs: {}, rowEl: null, chipsHolder: null };
       var row = h('div', { class: 'trow', role: 'row' }, h('code', { class: 'cell-code', role: 'cell' }, ln.trim()));
       show.forEach(function (r) {
-        var inp = h('input', { type: 'text', class: 'hex-in', value: hx(prev.regs[r]), 'aria-label': r + ' after ' + ln.trim(), spellcheck: 'false' });
+        var inp = h('input', { type: 'text', class: 'hex-in', value: hx(prev.regs[r]), placeholder: r, 'aria-label': r + ' after ' + ln.trim(), spellcheck: 'false' });
         st.inputs[r] = inp; row.appendChild(h('span', { role: 'cell' }, inp));
       });
       var holder = h('span', { role: 'cell' });

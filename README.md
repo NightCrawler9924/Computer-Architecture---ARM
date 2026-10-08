@@ -1,8 +1,10 @@
-# ENGR 359 Learning Lab
+# Datapath
 
-An interactive course site for **ENGR 359 Microcomputer Engineering**. It teaches computer organisation and ARM
-assembly from first principles, with a simulator, interactive tools and practice questions, and it is designed to
-work well on a phone.
+Learn how computers actually run code. Datapath is an interactive course in microcomputer engineering: number
+representation, memory and buses, the ARM processor and assembly, flags, and the Tiva LaunchPad labs. It has a
+simulator, hands-on tools and practice questions, and it is designed to work well on a phone.
+
+It follows the content of **ENGR 359 Microcomputer Engineering**.
 
 **Live site:** https://nightcrawler9924.github.io/Computer-Architecture---ARM/
 
