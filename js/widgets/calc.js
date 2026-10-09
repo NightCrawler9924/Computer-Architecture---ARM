@@ -27,7 +27,7 @@
   }
 
   Lab.widgets.calcCheck = function (root, o) {
-    var init = { regs: o.regs || {}, flags: o.flags };
+    var init = { regs: o.regs || {}, flags: o.flags, mem: o.mem };
     var src = '  ' + o.code + '\nstop B stop';
     var res = E.runProgram(src, init);
     if (!res.asm.ok) { root.appendChild(h('p', { class: 'feedback bad' }, 'Problem setup error: ' + res.asm.errors[0].msg)); return; }
@@ -35,7 +35,7 @@
     if (o.title) root.appendChild(h('div', { class: 'subhead', style: { marginTop: 0 } }, o.title));
     root.appendChild(givenTable(o.regs, o.flags));
     root.appendChild(h('p', {}, 'Run this instruction on its own:'));
-    root.appendChild(Lab.codeBlock(o.code, { init: init }));
+    root.appendChild(Lab.codeBlock(o.code, { init: init, run: o.reveal !== false }));
     var row = h('div', { class: 'field-row' });
     ask.forEach(function (r) { var f = Lab.hexField({ label: r + ' afterwards', placeholder: '0x........' }); inputs[r] = f; row.appendChild(f.el); });
     var fs = { N: 0, Z: 0, C: 0, V: 0 }, chips = null;
@@ -52,6 +52,14 @@
       ask.forEach(function (r) { var want = cpu.reg[E.parseReg(r)], got = inputs[r].get(); if (got !== want) wrong.push(r); inputs[r].input.classList.toggle('ok', got === want); inputs[r].input.classList.toggle('bad', got !== want); });
       if (o.askFlags !== false) ['N', 'Z', 'C', 'V'].forEach(function (k) { if (fs[k] !== cpu.f[k]) wrong.push(k); });
       var ok = !wrong.length, T = res.trace[0];
+      if (o.reveal === false) {
+        /* graded work: say which registers are right, explain the method, never show the answer */
+        var marks = ask.map(function (r) { return r + (wrong.indexOf(r) < 0 ? ' correct' : ' needs another look'); }).join(', ');
+        var fb2 = h('div', { class: 'feedback ' + (ok ? 'good' : 'bad') }, h('strong', { class: 'verdict' }, ok ? 'Correct.' : 'Not quite.'), h('div', {}, marks + '.'));
+        if (o.explain) fb2.appendChild(h('div', { class: 'explain', html: Lab.fmt(o.explain) }));
+        slot.appendChild(fb2);
+        return;
+      }
       var fb = h('div', { class: 'feedback ' + (ok ? 'good' : 'bad') }, h('strong', { class: 'verdict' }, ok ? 'Correct.' : 'Not quite. Check: ' + wrong.join(', ') + '.'));
       var show = h('button', { class: 'btn btn-sm', type: 'button' }, 'Show the answer and the working');
       show.addEventListener('click', function () {

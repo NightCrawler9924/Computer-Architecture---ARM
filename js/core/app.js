@@ -27,6 +27,7 @@
     }));
     sidebar.appendChild(tabs);
     var nav = h('nav', { 'aria-label': TRACKS[Lab.track] + ' map' });
+    var openedDefault = false;
     unitsOf(Lab.track).forEach(function (u) {
       var lessons = (u.lessons || []).filter(function (id) { return Lab.lessons[id]; });
       var done = lessons.filter(Lab.isDone).length;
@@ -38,15 +39,18 @@
           h('span', {}, L.title, isDone ? h('span', { class: 'sr-only' }, ' (completed)') : null))));
       });
       (u.soon || []).forEach(function (t) {
-        ul.appendChild(h('li', {}, h('a', { href: '#/syllabus', class: 'soon', title: 'Planned' },
+        ul.appendChild(h('li', {}, h('a', { href: '#/about', class: 'soon', title: 'Planned' },
           h('span', { class: 'tick soon', 'aria-hidden': 'true' }), h('span', {}, t, h('span', { class: 'sr-only' }, ' (not added yet)')))));
       });
-      nav.appendChild(h('div', { class: 'unit' },
-        h('div', { class: 'unit-title' }, h('span', {}, u.title), lessons.length ? h('small', { class: 'num' }, done + '/' + lessons.length) : null), ul));
+      var hasCurrent = lessons.some(function (id) { return current === 'lesson/' + id; }) || current === 'unit/' + u.id;
+      var det = h('details', { class: 'unit', 'data-unit': u.id },
+        h('summary', { class: 'unit-title' }, h('span', {}, u.title), lessons.length ? h('small', { class: 'num' }, done + ' of ' + lessons.length) : null), ul);
+      if (hasCurrent || (!current || current === 'home') && !openedDefault && lessons.length && done < lessons.length) { det.open = true; openedDefault = true; }
+      nav.appendChild(det);
     });
     nav.appendChild(h('div', { class: 'side-sec' }, 'Tools'));
     nav.appendChild(h('ul', { style: { listStyle: 'none', margin: 0, padding: 0 } },
-      [['sim', 'ARM simulator'], ['tools', 'All interactive tools'], ['practice', 'Practice questions'], ['reference', 'Reference and glossary'], ['syllabus', 'Syllabus and coverage'], ['about', 'About and progress']].map(function (r) {
+      [['sim', 'ARM simulator'], ['tools', 'All interactive tools'], ['practice', 'Practice questions'], ['reference', 'Reference and glossary'], ['about', 'About and progress']].map(function (r) {
         return h('li', {}, h('a', { href: '#/' + r[0], 'data-route': r[0], style: { display: 'block', padding: '7px 10px', borderRadius: 'var(--r)', color: 'var(--ink-2)', textDecoration: 'none' } }, r[1]));
       })));
     sidebar.appendChild(nav);
@@ -57,6 +61,8 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-route]'), function (a) {
       if (a.getAttribute('data-route') === current) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
+    var cur = document.querySelector('.sidebar [aria-current="page"]'), du = cur && cur.closest('details');
+    if (du) du.open = true;
     Array.prototype.forEach.call(document.querySelectorAll('.topnav a, .tabbar a'), function (a) {
       var r = a.getAttribute('data-top'), inCourse = /^(lesson|unit|home)/.test(current) || current === '', on;
       if (r === 'course') on = inCourse && Lab.track === 'course';

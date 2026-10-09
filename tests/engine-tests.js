@@ -245,6 +245,48 @@
   var e6 = E.assemble('  MOV R0, #-1'); T('MOV #-1 becomes MVN', e6.ok && e6.program[0].op === 'MVN', JSON.stringify(e6));
   var neg = run('  MOV R0, #-1\n  ADD R1, R0, #-2\nstop B stop'); eq('MOV #-1', hx(neg.reg[0]), '0xFFFFFFFF'); eq('ADD #-2 becomes SUB', hx(neg.reg[1]), '0xFFFFFFFD');
 
+  // memory-mapped GPIO model (Handout 03 part 5), driven by real ARM code
+  function gpioRun(src, ext) {
+    var gp = new E.Gpio(); if (ext !== undefined) gp.ext = ext;
+    var a = E.assemble(src); if (!a.ok) throw new Error(JSON.stringify(a.errors));
+    var cpu = new E.CPU(); cpu.reset(a); cpu.mmio = gp; cpu.run(2000); return { gp: gp, cpu: cpu };
+  }
+  var HDR = 'IOFPIN EQU 0xE0028000\nIOFSET EQU 0xE0028004\nIOFDIR EQU 0xE0028008\nIOFCLR EQU 0xE002800C\n';
+  var g1 = gpioRun(HDR + '  LDR R0, =IOFDIR\n  MOV R1, #0x03\n  STR R1, [R0]\nstop B stop');
+  eq('GPIO direction write', hx(g1.gp.dir), '0x00000003');
+  var g2 = gpioRun(HDR + '  LDR R0, =IOFDIR\n  MOV R1, #0xFF\n  STR R1, [R0]\n  LDR R0, =IOFSET\n  MOV R2, #0x30\n  STR R2, [R0]\n  LDR R1, =IOFCLR\n  MOV R3, #0x10\n  STR R3, [R1]\nstop B stop');
+  eq('GPIO set pins 4 and 5 then clear pin 4', hx(g2.gp.out), '0x00000020');
+  var g3 = gpioRun(HDR + '  LDR R0, =IOFSET\n  MOV R2, #0x30\n  STR R2, [R0]\nstop B stop');
+  eq('GPIO set on an input pin does nothing', hx(g3.gp.out), '0x00000000');
+  var sw = gpioRun(HDR + '  LDR R0, =IOFPIN\n  LDR R1, [R0]\nstop B stop', 0xFFFFFFBF);
+  eq('GPIO reads an input pin low (pin 6 pulled to 0)', hx(sw.cpu.reg[1] & 0x40, 2), '0x00');
+  // the slide toggle code stores to the wrong register: pin 3 starts clear and stays clear
+  var slide = HDR + '  LDR R0, =IOFDIR\n  MOV R1, #0x08\n  STR R1, [R0]\n  LDR R0, =IOFPIN\n  LDR R5, =IOFSET\n  LDR R6, =IOFCLR\n  LDR R1, [R0]\n  MOV R7, #0x08\n  TST R1, R7\n  STREQ R7, [R6]\n  STRNE R7, [R5]\nstop B stop';
+  eq('slide toggle leaves a clear pin clear', hx(gpioRun(slide).gp.out & 8, 2), '0x00');
+  var fixed = slide.replace('STREQ R7, [R6]', 'STREQ R7, [R5]').replace('STRNE R7, [R5]', 'STRNE R7, [R6]');
+  eq('corrected toggle sets a clear pin', hx(gpioRun(fixed).gp.out & 8, 2), '0x08');
+  // STMED stack layout used in the Stack and Subroutines lesson (slide 20 numbers)
+  var st = run('  LDR R13, =0x00340080\n  MOV R0, #1\n  MOV R1, #2\n  MOV R2, #3\n  MOV R14, #4\n  STMED R13!, {R0-R2, R14}\nstop B stop');
+  eq('STMED stores R14 at the old SP', hx(st.readN(0x340080, 4)), '0x00000004');
+  eq('STMED stores R0 lowest', hx(st.readN(0x340074, 4)), '0x00000001');
+  eq('STMED leaves SP 16 lower', hx(st.reg[13]), '0x00340070');
+  // quiz 1 problem 3, hardware flags
+  var q1 = run('  CMP R1, R0\n  SUBGTS R0, R1, R0, LSL #1\n  SUBEQS R2, R1, R2\nstop B stop', { regs: { R0: 4, R1: 8, R2: 10 } });
+  eq('Quiz 1 P3 final R0', hx(q1.reg[0]), '0x00000000'); eq('Quiz 1 P3 final R2', hx(q1.reg[2]), '0xFFFFFFFE');
+  eq('Quiz 1 P3 final hardware flags NZCV', fl(q1.f), '1000');
+  var q1a = run('  CMP R1, R0\nstop B stop', { regs: { R0: 4, R1: 8 } }); eq('Quiz 1 P3 after CMP, hardware NZCV', fl(q1a.f), '0010');
+  var q1b = run('  CMP R1, R0\n  SUBGTS R0, R1, R0, LSL #1\nstop B stop', { regs: { R0: 4, R1: 8 } }); eq('Quiz 1 P3 after SUBGTS, hardware NZCV', fl(q1b.f), '0110');
+  // Homework 2 problem 1, each part from R1=4, R2=2 (expected values from an independent hand calculation)
+  var m2 = [{ addr: 4, bytes: [0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0] }];
+  function hw2(line) { var c = run('  ' + line + '\nstop B stop', { regs: { R1: 4, R2: 2 }, mem: m2 }); return hx(c.reg[0]) + ' ' + hx(c.reg[1]) + ' ' + hx(c.reg[2]); }
+  eq('HW2 1a', hw2('LDR R0, [R1]'), '0xDDCCBBAA 0x00000004 0x00000002');
+  eq('HW2 1b', hw2('LDRB R0, [R1, #4]'), '0x000000EE 0x00000004 0x00000002');
+  eq('HW2 1c', hw2('LDRH R0, [R1, R2]'), '0x0000CCCC'.replace('CCCC', 'DDCC') + ' 0x00000004 0x00000002');
+  eq('HW2 1d', hw2('LDRB R0, [R1, R2, LSL #2]'), '0x000000AD 0x00000004 0x00000002');
+  eq('HW2 1e', hw2('LDR R0, [R1, R2, LSL #2]!'), '0xB0AFAEAD 0x0000000C 0x00000002');
+  eq('HW2 1f', hw2('LDR R0, [R1], #2'), '0xDDCCBBAA 0x00000006 0x00000002');
+  eq('HW2 1g', hw2('LDR R0, [R1], R2, LSL #1'), '0xDDCCBBAA 0x00000008 0x00000002');
+
   document.getElementById('summary').innerHTML = '<b>' + pass + ' passed, ' + fail + ' failed</b>';
   window.__results = { pass: pass, fail: fail, failures: failures };
 })();

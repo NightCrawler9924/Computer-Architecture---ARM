@@ -126,7 +126,7 @@
     editorCol.appendChild(toolbar);
     var listing = h('div', { class: 'sim-listing', role: 'group', 'aria-label': 'Assembled program. Select a line to toggle a breakpoint.' });
     editorCol.appendChild(listing);
-    var hint = h('p', { class: 'muted sim-hint' }, editable ? 'Instructions start in the second column or later. Anything starting in the first column is a label. Click a line in the listing to set a breakpoint. Ctrl+Enter assembles.' : '');
+    var hint = h('p', { class: 'muted sim-hint' }, editable ? 'Instructions start in the second column or later. Anything starting in the first column is a label. Select a line in the listing to set a breakpoint. Ctrl+Enter assembles.' : '');
     editorCol.appendChild(hint);
 
     var regBox = h('div', { class: 'sim-regs' }), flagBox = h('div'), msgBox = h('div', { class: 'sim-msg', 'aria-live': 'polite' }), memBox = h('div', { class: 'sim-mem' }), initBox = h('details', { class: 'sim-init' }), traceBox = h('div', { class: 'sim-trace' });

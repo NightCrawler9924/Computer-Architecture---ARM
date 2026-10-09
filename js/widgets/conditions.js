@@ -33,7 +33,7 @@
     function render() {
       Lab.clear(body);
       if (st.tab === 'flags') {
-        body.appendChild(h('p', { style: { marginTop: '14px' } }, 'Click a flag to flip it. The table shows which conditions would let an instruction run with those flags.'));
+        body.appendChild(h('p', { style: { marginTop: '14px' } }, 'Tap a flag to flip it. The table shows which conditions would let an instruction run with those flags.'));
         body.appendChild(Lab.flagChips(st.f, { click: function (k) { st.f[k] ^= 1; render(); } }));
         var passing = E.COND.filter(function (c) { return c.code !== 'NV' && c.code !== 'AL' && c.fn(st.f); }).map(function (c) { return c.code; });
         body.appendChild(h('p', { class: 'muted', style: { marginTop: '10px' }, html: Lab.fmt('Passing right now: ' + (passing.length ? passing.map(function (c) { return '`' + c + '`'; }).join(' ') : 'none except AL')) }));

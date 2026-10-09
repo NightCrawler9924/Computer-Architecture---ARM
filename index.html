@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Opcode">
 <title>Opcode: learn how computers run code</title>
 <meta name="description" content="Opcode is an interactive course in microcomputer engineering: ARM assembly, flags, memory and buses, with a simulator, hands-on tools and practice. Built for engineers, works on a phone.">
+<script>try{var t=localStorage.getItem("e359.theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/tokens.css">
@@ -29,10 +30,9 @@
     <a href="#/tools" data-top="tools">Tools</a>
     <a href="#/practice" data-top="practice">Practice</a>
     <a href="#/reference" data-top="reference">Reference</a>
-    <a href="#/syllabus" data-top="syllabus">Syllabus</a>
   </nav>
   <div class="topbar-tools">
-    <span class="pill" id="progress-pill" aria-live="polite"></span>
+    <a class="pill" id="progress-pill" href="#/about" title="Your progress and about this site"></a>
     <div class="theme-switch" role="group" aria-label="Colour theme">
       <button type="button" data-theme-set="light" aria-label="Light theme" title="Light"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></svg></button>
       <button type="button" data-theme-set="dark" aria-label="Dark theme" title="Dark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
@@ -42,7 +42,7 @@
 </header>
 <div class="shell">
   <aside class="sidebar" id="sidebar" aria-label="Course navigation"></aside>
-  <main class="main" id="main" tabindex="-1"></main>
+  <main class="main" id="main" tabindex="-1"><p class="boot muted">Loading</p></main>
 </div>
 <nav class="tabbar" aria-label="Primary">
   <a href="#/" data-top="course"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H20v14H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20"/></svg><span>Course</span></a>
@@ -56,6 +56,7 @@
 <!-- engine -->
 <script defer src="js/engine/bits.js"></script>
 <script defer src="js/engine/arm.js"></script>
+<script defer src="js/engine/gpio.js"></script>
 <!-- core -->
 <script defer src="js/core/ui.js"></script>
 <script defer src="js/core/question.js"></script>
@@ -70,6 +71,8 @@
 <script defer src="js/widgets/simulator.js"></script>
 <script defer src="js/widgets/encoder.js"></script>
 <script defer src="js/widgets/calc.js"></script>
+<script defer src="js/widgets/challenge.js"></script>
+<script defer src="js/widgets/gpio.js"></script>
 <script defer src="js/widgets/hardware.js"></script>
 <script defer src="js/widgets/diagrams.js"></script>
 <!-- pages -->
@@ -95,7 +98,11 @@
 <script defer src="content/m3-cond.js"></script>
 <script defer src="content/m3-memaccess.js"></script>
 <script defer src="content/m3-flow.js"></script>
+<script defer src="content/m3-stack.js"></script>
+<script defer src="content/m3-gpio.js"></script>
 <script defer src="content/hw1.js"></script>
+<script defer src="content/hw2.js"></script>
+<script defer src="content/quiz1.js"></script>
 <script defer src="content/lab-board.js"></script>
 <script defer src="content/lab2.js"></script>
 <script>if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });</script>

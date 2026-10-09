@@ -630,12 +630,16 @@
   CPU.prototype.readByte = function (a) { a = a >>> 0; return this.mem.has(a) ? this.mem.get(a) : 0; };
   CPU.prototype.writeByte = function (a, v) { a = a >>> 0; this.mem.set(a, v & 0xFF); this.touched.set(a, 'w'); };
   CPU.prototype.readN = function (a, n) {
+    if (this.mmio && this.mmio.covers(a >>> 0)) return this.mmio.read(a >>> 0, n) >>> 0;
     var v = 0;
     for (var i = n - 1; i >= 0; i--) v = ((v << 8) | this.readByte(a + i)) >>> 0;
     for (i = 0; i < n; i++) if (!this.touched.has((a + i) >>> 0)) this.touched.set((a + i) >>> 0, 'r');
     return v >>> 0;
   };
-  CPU.prototype.writeN = function (a, v, n) { for (var i = 0; i < n; i++) this.writeByte(a + i, (v >>> (8 * i)) & 0xFF); };
+  CPU.prototype.writeN = function (a, v, n) {
+    if (this.mmio && this.mmio.covers(a >>> 0)) { this.mmio.write(a >>> 0, v >>> 0, n); return; }
+    for (var i = 0; i < n; i++) this.writeByte(a + i, (v >>> (8 * i)) & 0xFF);
+  };
   CPU.prototype.R = function (n, addr) { return n === 15 ? (addr + 8) >>> 0 : this.reg[n] >>> 0; };
 
   CPU.prototype.op2 = function (o, addr) {

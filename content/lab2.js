@@ -16,7 +16,7 @@
         ['D', '3-axis accelerometer', '23, 24, 25 (X, Y, Z)'], ['E', 'Buttons S1 and S2', '33 (Button 1), 32 (Button 2)'], ['F', 'RGB LED', '37 blue, 38 green, 39 red'],
         ['G', 'Buzzer', '40'], ['H, K', 'GPIO headers J2 and J4, J1 and J3', 'carry all the signals'], ['J', 'LCD display', '7 clock, 15 data, 13 chip select, 17 reset, 31 register select, 39 backlight'],
         ['L', 'Microphone', '6'], ['M', 'Power indicator LEDs', 'none'], ['N', '2-axis joystick with pushbutton', '2 (X), 26 (Y), 5 (select)'] ] } },
-      { widget: { name: 'pinTable', title: 'Click a part to see its pins' } },
+      { widget: { name: 'pinTable', title: 'Select a part to see its pins' } },
       { warn: 'Pin 39 is wired to the **jumper (part A)**. It selects between the red LED and the LCD backlight. For the dimming screen in this lab the jumper must sit in the position marked **LCD BACKLT**. To use both the LED and the backlight, wire one of them to an unused pin with a jumper wire.' },
       { predict: { q: 'The LaunchPad red LED is on pin 30. Part of Lab 1 blinks it. Will the BoosterPack interfere with that code?', opts: ['Yes, the BoosterPack uses pin 30 for the LCD', 'No, pin 30 is not connected to anything on the BoosterPack', 'Only if the jumper is set to LCD BACKLT', 'Only if the light sensor is read'], ans: 1,
         why: 'The manual says pin 30 controls the red LED on the LaunchPad and is not connected to anything on the BoosterPack, so there should be no conflicts with the Lab 1 code. (Pin 39 is the shared one.)' } },

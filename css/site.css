@@ -386,3 +386,26 @@ input::placeholder, textarea::placeholder { opacity: 1; }
 .field label, .field .lab, .lab { line-height: 1.3; }
 .hexlab-view .btn-row { margin-bottom: var(--s3); }
 .hexlab-view > .flags { margin-top: var(--s2); }
+
+
+/* ===== interaction polish: respond on press, release with a settle ===== */
+:root { --spring: cubic-bezier(.2, .9, .3, 1.15); }
+.btn, .opt, .path-item, .tool-list a, .icon-btn, .tabbar a, .seg button, .theme-switch button, .swbtn, button.flag {
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform 220ms var(--spring);
+}
+.btn:active, .opt:active, .path-item:active, .tool-list a:active, .icon-btn:active, .tabbar a:active, .seg button:active, .swbtn:active, button.flag:active { transform: scale(.97); transition-duration: 60ms; }
+@media (prefers-reduced-motion: reduce) { .btn:active, .opt:active, .path-item:active, .tool-list a:active, .icon-btn:active, .tabbar a:active, .seg button:active, .swbtn:active, button.flag:active { transform: none; } }
+@media (prefers-contrast: more) { :root { --border: var(--border-strong); } .btn, .opt, .card, .path-item, .tool-list a { box-shadow: 0 0 0 1px var(--foreground-muted); } }
+
+/* collapsible course map */
+details.unit > summary { list-style: none; cursor: pointer; border-radius: var(--radius); min-height: 36px; align-items: center; }
+details.unit > summary::-webkit-details-marker { display: none; }
+details.unit > summary::before { content: ""; width: 7px; height: 7px; flex: none; margin-right: 8px; border-right: 1.6px solid var(--foreground-muted); border-bottom: 1.6px solid var(--foreground-muted); transform: rotate(-45deg); transition: transform 180ms var(--ease); }
+details.unit[open] > summary::before { transform: rotate(45deg); }
+details.unit > summary:hover { background: var(--background-muted, var(--border-subtle)); }
+details.unit > summary > span { flex: 1; }
+.pill { text-decoration: none; }
+.pill:hover { color: var(--foreground); }
+.boot { padding: var(--s6) 0; }
+.bit-idx { font-size: 11px; }
+@media (max-width: 520px) { html { font-size: 106.25%; } }
