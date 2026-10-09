@@ -18,6 +18,7 @@
       { h: 'Worked trace' },
       { sim: { title: 'CMP, then a conditional ADDGTS', code: '  MOV R0, #5\n  MOV R2, #3\n  MOV R1, #0\n  CMP    R0, R2        ; 5 - 3: N=0 Z=0 C=1 V=0\n  ADDGTS R1, R0, R2    ; GT is true, so it runs and S overwrites the flags\nstop B stop', showPC: true } },
       { p: 'Notice that **C changed from 1 to 0** on the last line. The S on the conditional instruction overwrote the comparison\'s flags. If a later line tested `CS`, it would now see C = 0 and be skipped. Track the flags line by line.' },
+      { tip: 'Quiz 1\'s solution key leaves C at 0 after a subtraction that needs no borrow (for example 8 - 4 or 8 - 8). Real ARM sets C = 1 there, which is the rule on this page. The registers and which instructions run are the same either way. When a marker\'s key differs, answer in the key\'s convention and know the hardware rule. The Quiz 1 review lesson has the full comparison.' },
       { h: 'Your turn: a trace table' },
       { widget: { name: 'calcTrace', title: 'Trace these three lines (all flags start clear)', opts: { regs: { R0: 2, R1: 7 }, code: '  CMP R0, R1\n  ADDLTS R0, R0, R1\n  SUBGES R1, R1, R0', show: ['R0', 'R1'] } } },
       { h: 'Homework 1, Problem 3' },

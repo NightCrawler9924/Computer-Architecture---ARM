@@ -49,6 +49,11 @@
     ['Module 2, page 4', 'Says the ARM has a 32-bit address bus and a 16-bit data bus.', 'The Cortex-M4 on your board has a 32-bit data bus. Treat it as a generic teaching figure.'],
     ['Handout 03, slide 29', 'Writes `LDR r0, =0xFFFFFFFFF` with nine Fs.', 'Eight Fs make 32 bits: `0xFFFFFFFF`.'],
     ['Handout 03, slide 34', 'Says `MOV r1, SP` copies "SP (r14)".', 'SP is r13. r14 is LR.'],
+    ['Handout 03 Part 4, slides 5 to 9', 'Describes PUSH and POP as taking "a register or an immediate value".', 'On ARM, PUSH and POP take a register list only, and are full descending (decrement, then store). The course\'s empty descending stack uses STMED and LDMED.'],
+    ['Handout 03 Part 5, slides 6 and 8', 'Writes `MOV R1, 0x03` and `MOV R2, 0x30` without a #.', 'A constant needs the #: `MOV R1, #0x03`.'],
+    ['Handout 03 Part 5, slide 7', 'Tests a positive-logic switch with `TST` and then `BEQ Pressed`.', 'Pressed reads 1, so the AND is non-zero and Z = 0. Use `BNE Pressed`. BEQ is for negative logic.'],
+    ['Handout 03 Part 5, slide 9', 'Toggle code: `STREQ R7, [R6]` (CLR) when the pin tests clear, `STRNE R7, [R5]` (SET) when set. Also `LDR R7, 0x08`.', 'The registers are swapped: a clear pin must be SET, a set pin must be CLEARED. And `MOV R7, #0x08`.'],
+    ['Quiz 1 solution key, Problem 3', 'Leaves C at 0 after `CMP R1, R0` (8 - 4) and after `SUBGTS` (8 - 8).', 'Real ARM sets C = 1 when a subtraction needs no borrow. Registers and which instructions run are unaffected.'],
     ['Homework 1, Problem 4', 'R1 is never set, and one instruction says "4R0".', 'State your assumptions: R0 + R1 for the add, and "4R0" is most likely a typo for R0. Solve both readings if unsure.']
   ];
 

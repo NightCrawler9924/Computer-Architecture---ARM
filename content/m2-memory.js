@@ -14,6 +14,7 @@
       { h: 'A read and a write, step by step' },
       { widget: { name: 'buses', title: 'Memory cycles' } },
       { p: 'Notice the asymmetry. A **write** has to put the data on the data bus before asserting the write signal, and nothing useful comes back. A **read** has a wait in the middle, the **access time**, and the data comes back on the data bus.' },
+      { keep: 'The four steps Quiz 1 asked for, in order: **1.** the CPU puts the address on the address bus. **2.** The CPU issues the read signal. **3.** The memory puts a copy of the data on the data bus. **4.** The CPU reads the data. Module 2\'s fuller version also shows the wait for access time and the CPU releasing the read signal, so it counts five. Write the four when a question asks for "the steps", and mention the wait if marks allow.' },
       { predict: { q: 'In a **write** cycle, who drives the data bus?', opts: ['The CPU', 'The memory', 'The I/O controller', 'Nobody, it is idle'], ans: 0, why: 'For a write the CPU supplies the value. For a read, memory drives the data bus and the CPU samples it.' } },
       { h: 'Access time versus cycle time' },
       { p: '**Access time** is how long you wait for data after asking. That is latency. **Cycle time** is the minimum gap between the start of one operation and the start of the next. That is throughput. Cycle time is always at least as large as access time.' },
@@ -34,7 +35,7 @@
         { kind: 'mcq', q: 'Why does DRAM need to be refreshed?', opts: ['Capacitors leak their charge', 'The flip-flops overheat', 'Reads are slow', 'The address changes'], ans: 0, why: 'A charged capacitor slowly loses its charge, so each bit must be rewritten roughly every 64 ms.' },
         { kind: 'mcq', q: 'Why is DRAM cycle time about twice its access time?', opts: ['A read destroys the charge, so a restore cycle follows', 'It has two clocks', 'The address is sent twice', 'It refreshes on every read'], ans: 0, why: 'Destructive read, then restore.' },
         { kind: 'mcq', q: 'Which memory is used for caches?', opts: ['SRAM', 'DRAM', 'Flash', 'Tape'], ans: 0, why: 'SRAM is fast and needs no refresh.' },
-        { kind: 'mcq', q: 'How many steps are in a typical memory read cycle in the module?', opts: ['5', '3', '7', '2'], ans: 0, why: 'Address, read signal, wait, read the data, drop the signal.' } ] } }
+        { kind: 'mcq', q: 'How many steps are in a typical memory read cycle in the module?', opts: ['5', '3', '7', '2'], ans: 0, why: 'Module 2 lists five: address, read signal, wait, read the data, drop the signal. Quiz 1 accepted the four-step version: address, read signal, memory puts data on the bus, CPU reads it.' } ] } }
     ],
     takeaways: ['Memory is byte-addressable. Read is non-destructive, write destroys the old value.', 'Access time is latency, cycle time is throughput. DRAM cycle time is about twice access time.', 'SRAM uses flip-flops (fast, no refresh). DRAM uses capacitors (dense, cheap, refresh about every 64 ms, destructive read).', 'The hierarchy exists because nothing is fast, big and cheap together.']
   });

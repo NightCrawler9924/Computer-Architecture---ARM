@@ -180,6 +180,7 @@
         chips.appendChild(h('button', { type: 'button', 'aria-pressed': state.topic === t[0] ? 'true' : 'false', onclick: function () { state.topic = t[0]; drawChips(); next(); } }, t[1]));
       });
     }
+    el.appendChild(h('p', {}, h('a', { class: 'btn', href: '#/basics' }, 'Basics flashcards')));
     el.appendChild(h('div', { class: 'practice-chips' }, chips));
     el.appendChild(stats); el.appendChild(slot);
     function drawStats() {

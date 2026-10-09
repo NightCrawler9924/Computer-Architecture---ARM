@@ -36,6 +36,7 @@
       { tip: 'For marks in this course, follow the convention the instructor and the key use. For understanding, know the hardware rule. Mixed conventions are the reason these flag columns feel inconsistent. Ask your instructor which one the quiz expects, or check how Homework 1\'s solutions write C after a subtraction.' },
       { widget: { name: 'condExplorer', title: 'See how GT depends on N and V' } },
       { h: 'Test yourself on the facts' },
+      { html: '<p>For repeat practice, the <a href="#/basics">Basics flashcards</a> cover all of these and more, and bring missed cards back sooner.</p>' },
       { quiz: { id: 'quiz1-facts', title: 'Quiz 1 fundamentals', qs: [
         { kind: 'mcq', q: 'RISC stands for...', opts: ['Reduced Instruction Set Computer', 'Restricted Instruction Sequencing Computer', 'Register Indexed Sequential Computer', 'None of the above'], ans: 0, why: 'Reduced Instruction Set Computer.' },
         { kind: 'mcq', q: 'A memory with an 8-bit data bus and a 24-bit address bus is...', opts: ['16 MB', '64 MB', '32 GB', '16 GB'], ans: 0, why: '2^24 = 16 M locations of 1 byte each.' },

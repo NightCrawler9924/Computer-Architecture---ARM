@@ -41,6 +41,8 @@
       code: '  LDR R4, =0xFFFFFFFF\n  BFC R4, #8, #12          ; clear bits 8 to 19\n  LDR R2, =0x00000ABC\n  MOV R9, #0\n  BFI R9, R2, #8, #12      ; insert 12 bits at bit 8\n  LDR R0, =0x12345678\n  RBIT R1, R0              ; reverse all 32 bits\nstop B stop' },
     { id: 'call', title: 'Call a function with BL, return with BX LR, save with PUSH and POP', source: 'Module 3',
       code: '  MOV R0, #5\n  BL double\n  BL double\n  B stop\ndouble PUSH {R4, LR}\n  ADD R0, R0, R0\n  POP {R4, LR}\n  BX LR\nstop B stop' },
+    { id: 'nested', title: 'Nested subroutines with STMED and LDMED', source: 'Handout 03 Part 4',
+      code: '  LDR SP, =0x00340080     ; SP starts here\n  MOV R0, #1\n  MOV R1, #2\n  MOV R2, #3\n  BL sub1\n  ADD R3, R0, R1          ; R0 and R1 must survive the call\n  B stop\nsub1 STMED SP!, {R0-R2, LR}   ; push work registers and the return address\n  MOV R0, #9\n  MOV R1, #8\n  BL sub2\n  LDMED SP!, {R0-R2, LR}  ; pop them back\n  MOV PC, LR\nsub2 STMED SP!, {R0, LR}\n  ADD R0, R0, R1\n  LDMED SP!, {R0, LR}\n  MOV PC, LR\nstop B stop' },
     { id: 'stm', title: 'STMED and LDMED (empty descending stack)', source: 'Homework 1 formula sheet',
       code: '  LDR R0, =0x20007F00\n  MOV R1, #1\n  MOV R2, #2\n  MOV R3, #3\n  STMED R0!, {R1-R3}\n  MOV R1, #0\n  MOV R2, #0\n  MOV R3, #0\n  LDMED R0!, {R1-R3}\nstop B stop' },
     { id: 'blank', title: 'Blank program', source: '', code: '  ; type your own program here\n  MOV R0, #1\nstop B stop' }

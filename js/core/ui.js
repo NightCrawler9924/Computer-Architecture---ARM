@@ -64,7 +64,7 @@
   Lab.saveProgress = function () { lsSet('e359.progress', JSON.stringify(P)); Lab.emit('progress'); };
   Lab.isDone = function (id) { return !!P.done[id]; };
   Lab.setDone = function (id, v) { if (v) P.done[id] = true; else delete P.done[id]; Lab.saveProgress(); };
-  Lab.resetProgress = function () { P.done = {}; P.quiz = {}; P.practice = { answered: 0, correct: 0, bestStreak: 0, byTopic: {} }; P.diag = null; Lab.saveProgress(); };
+  Lab.resetProgress = function () { P.done = {}; P.quiz = {}; P.practice = { answered: 0, correct: 0, bestStreak: 0, byTopic: {} }; P.basics = {}; P.diag = null; Lab.saveProgress(); };
 
   var listeners = {};
   Lab.on = function (ev, fn) { (listeners[ev] = listeners[ev] || []).push(fn); };

@@ -17,6 +17,7 @@
       { table: { head: ['Operands', 'Result', 'V'], rows: [['positive - negative', 'negative', '1 (impossible)'], ['negative - positive', 'positive', '1 (impossible)'], ['same sign', 'anything', '0 always'] ] } },
       { p: 'Compare with addition, where **same** signs were the dangerous case. For subtraction it is **different** signs, because you negated the second operand. Notice the mirroring rather than memorising two unrelated lists.' },
       { keep: 'A two-second check on any subtraction: compare the leading digits as unsigned. If A\'s is smaller, a borrow happened, so C = 0. Always do this before trusting your flags.' },
+      { tip: 'Quiz 1\'s solution key leaves C at 0 after a subtraction that needs no borrow (for example 8 - 4 or 8 - 8). Real ARM sets C = 1 there, which is the rule on this page. The registers and which instructions run are the same either way. When a marker\'s key differs, answer in the key\'s convention and know the hardware rule. The Quiz 1 review lesson has the full comparison.' },
       { h: 'Your turn: Homework 1, Problem 1(c) and 1(d)' },
       { widget: { name: 'calcCheck', title: 'Problem 1(c)', opts: { regs: { R1: 0xEFD41234, R2: 0x6DFF8763 }, code: 'SUBS R8, R2, R1', ask: ['R8'] } } },
       { widget: { name: 'calcCheck', title: 'Problem 1(d): both C and V end up set', opts: { regs: { R2: 0x6DFF8763, R3: 0x9876ABCD }, code: 'SUBS R9, R3, R2', ask: ['R9'] } } },

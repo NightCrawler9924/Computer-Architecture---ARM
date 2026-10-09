@@ -50,7 +50,7 @@
     });
     nav.appendChild(h('div', { class: 'side-sec' }, 'Tools'));
     nav.appendChild(h('ul', { style: { listStyle: 'none', margin: 0, padding: 0 } },
-      [['sim', 'ARM simulator'], ['tools', 'All interactive tools'], ['practice', 'Practice questions'], ['reference', 'Reference and glossary'], ['about', 'About and progress']].map(function (r) {
+      [['sim', 'ARM simulator'], ['tools', 'All interactive tools'], ['practice', 'Practice questions'], ['basics', 'Basics flashcards'], ['reference', 'Reference and glossary'], ['about', 'About and progress']].map(function (r) {
         return h('li', {}, h('a', { href: '#/' + r[0], 'data-route': r[0], style: { display: 'block', padding: '7px 10px', borderRadius: 'var(--r)', color: 'var(--ink-2)', textDecoration: 'none' } }, r[1]));
       })));
     sidebar.appendChild(nav);
